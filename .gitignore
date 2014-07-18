@@ -1,0 +1,6 @@
+*.sw[op]
+lib/
+.idea/
+*.iml
+*.class
+*.jar
