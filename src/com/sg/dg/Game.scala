@@ -4,6 +4,8 @@
 
 package com.sg.dg
 
+import com.sg.dg.gfx.RGBColor
+
 import com.sg.dg.util._
 import org.joda.time
 
@@ -19,7 +21,13 @@ object Game extends App {
   def gameLoop() {
     val loopTime = time.DateTime.now.getMillis
 
-    val die = Displayer.update || Inputter.killMe
+    // TODO: Mouse shit in Inputter
+    World.setColor( new RGBColor( .2f, .4f, .6f ) )
+
+    World.update
+    Displayer.update
+
+    val die = DisplayUtil.die || Inputter.die
 
     val diff = time.DateTime.now.getMillis - loopTime
     if( diff > 0 ) Thread sleep( diff )

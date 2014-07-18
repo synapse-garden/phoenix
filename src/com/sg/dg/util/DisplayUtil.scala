@@ -34,4 +34,8 @@ object DisplayUtil {
   def destroyDisplay() {
     Display destroy()
   }
+
+  def die(): Boolean = {
+    Display isCloseRequested
+  }
 }
