@@ -4,31 +4,29 @@
 
 package com.sg.dg
 
-// What GL version you plan on using
-import org.lwjgl.opengl.GL11._
-import org.lwjgl.opengl.{
-Display,
-DisplayMode
-}
+import com.sg.dg.util._
+// import org.joda.time
 
 object Game extends App {
-  val displayMode = new DisplayMode(640, 480)
-  Display.setTitle("LWJGL Test")
-  Display.setDisplayMode(displayMode)
-  Display.create()
-  fader(0f)
-  Display.destroy()
-  sys.exit(0)
+  val MS_PER_FRAME = (1f / 60f * 1000f).toLong
+  val done = false
 
-  def fader(color: Float, d: Int = -1) {
-    val mult = if(color > 1f) 1 else if(color < 0f) -1 else d
-    val newColor = color - (mult * 0.02f)
+  InitUtil.init()
+  gameLoop()
+  DestroyUtil.destroy()
 
-    glClearColor(math.tan(newColor).toFloat, math.sin(newColor).toFloat, 0.5f, 1f)
-    glClear(GL_COLOR_BUFFER_BIT)
+  def gameLoop() {
+    // val loopTime = time.DateTime.now.getMillis
 
-    Display.update()
-    Thread.sleep(30)
-    if(!Display.isCloseRequested) fader(newColor, mult)
+    val die = Displayer.update || Inputter.killMe
+
+    // val diff = time.DateTime.now.getMillis - loopTime
+    // if( diff > 0 ) Thread sleep( diff )
+    Thread sleep MS_PER_FRAME
+
+    Displayer draw
+
+    if( !die ) gameLoop
   }
 }
+
