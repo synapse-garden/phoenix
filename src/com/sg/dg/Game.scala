@@ -22,9 +22,9 @@ object Game extends App {
 
   def fader(color: Float, d: Int = -1) {
     val mult = if(color > 1f) 1 else if(color < 0f) -1 else d
-    val newColor = color - (mult * 0.05f)
+    val newColor = color - (mult * 0.02f)
 
-    glClearColor(newColor, newColor, newColor, 1f)
+    glClearColor(math.tan(newColor).toFloat, math.sin(newColor).toFloat, 0.5f, 1f)
     glClear(GL_COLOR_BUFFER_BIT)
 
     Display.update()
