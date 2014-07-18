@@ -28,7 +28,7 @@ object Game extends App {
     glClear(GL_COLOR_BUFFER_BIT)
 
     Display.update()
-    Thread.sleep(60)
+    Thread.sleep(30)
     if(!Display.isCloseRequested) fader(newColor, mult)
   }
 }
