@@ -15,4 +15,6 @@ object Math {
       case _ => lower
     }
   }
+
+  def test(x: Float): Float = 2f * x
 }
