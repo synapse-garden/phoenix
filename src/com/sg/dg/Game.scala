@@ -8,7 +8,8 @@ import com.sg.dg.util._
 // import org.joda.time
 
 object Game extends App {
-  val MS_PER_FRAME = (1f / 60f * 1000f).toLong
+  val FRAMERATE = 60
+  val MS_PER_FRAME = (1 / FRAMERATE.toFloat * 1000f).toLong
   val done = false
 
   InitUtil.init()
