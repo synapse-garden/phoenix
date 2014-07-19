@@ -12,9 +12,9 @@ object Game extends App {
   val MS_PER_FRAME = (1 / FRAMERATE.toFloat * 1000f).toLong
   val done = false
 
-  InitUtil.init()
+  InitUtil init()
   gameLoop()
-  DestroyUtil.destroy()
+  DestroyUtil destroy()
 
   def gameLoop() {
     val loopTime = time.DateTime.now.getMillis
@@ -29,4 +29,3 @@ object Game extends App {
     if( !die ) gameLoop
   }
 }
-
