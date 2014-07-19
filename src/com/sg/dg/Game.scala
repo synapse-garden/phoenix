@@ -4,6 +4,8 @@
 
 package com.sg.dg
 
+import com.sg.dg.gfx.RGBColor
+
 import com.sg.dg.util._
 import org.joda.time
 
