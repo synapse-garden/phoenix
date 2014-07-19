@@ -5,7 +5,7 @@
 package com.sg.dg
 
 import com.sg.dg.util._
-// import org.joda.time
+import org.joda.time
 
 object Game extends App {
   val FRAMERATE = 60
@@ -17,13 +17,12 @@ object Game extends App {
   DestroyUtil.destroy()
 
   def gameLoop() {
-    // val loopTime = time.DateTime.now.getMillis
+    val loopTime = time.DateTime.now.getMillis
 
     val die = Displayer.update || Inputter.killMe
 
-    // val diff = time.DateTime.now.getMillis - loopTime
-    // if( diff > 0 ) Thread sleep( diff )
-    Thread sleep MS_PER_FRAME
+    val diff = time.DateTime.now.getMillis - loopTime
+    if( diff > 0 ) Thread sleep( diff )
 
     Displayer draw
 

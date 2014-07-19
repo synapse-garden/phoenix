@@ -13,8 +13,6 @@ import java.lang.System.err
 object DisplayUtil {
   def setupDisplay() {
     try {
-      var (w, h) = (0, 0)
-
       val dm: DisplayMode = Display.getAvailableDisplayModes.foldLeft(new DisplayMode(640, 480))(
         (m1, m2) =>
           if( m2.isFullscreenCapable &&
