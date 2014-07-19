@@ -19,7 +19,14 @@ object Game extends App {
   def gameLoop() {
     val loopTime = time.DateTime.now.getMillis
 
-    val die = Displayer.update || Inputter.killMe
+    // TODO: Mouse shit in Inputter
+    World.setColor( new RGBColor( .2f, .4f, .6f ) )
+
+    Inputter.update
+    World.update
+    Displayer.update
+
+    val die = DisplayUtil.die || Inputter.exitRequested
 
     val diff = time.DateTime.now.getMillis - loopTime
     if( diff > 0 ) Thread sleep( diff )

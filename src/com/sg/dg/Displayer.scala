@@ -10,9 +10,6 @@ import org.lwjgl.util.glu.GLU
 import org.lwjgl.opengl.Display
 
 object Displayer {
-  var color: Float = 0f
-  var mult: Float = -1f
-
   def draw() {
     glClearColor(math.tan(color).toFloat, math.sin(color).toFloat, 0.5f, 1f)
     glClear(GL_COLOR_BUFFER_BIT)

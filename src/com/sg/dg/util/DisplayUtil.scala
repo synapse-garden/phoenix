@@ -11,6 +11,8 @@ DisplayMode
 import java.lang.System.err
 
 object DisplayUtil {
+  def die: Boolean = Display isCloseRequested
+
   def setupDisplay() {
     try {
       val dm: DisplayMode = Display.getAvailableDisplayModes.foldLeft(new DisplayMode(640, 480))(
