@@ -5,10 +5,16 @@ package com.sg.dg
  */
 
 object Test extends App {
-  println(testTest(2, 4))
+  println(testRemap(550, 0.5f))
+  println(testLerp(0.372f, 372))
 
-  def testTest(in: Float, expected: Float): (Float, Boolean) = {
-    val ans = util.Math.test(in)
-    (ans, ans == expected)
+  def testRemap(in: Float, expected: Float): (Float, Float, Boolean) = {
+    val ans = util.Math.remap(in, 500, 600)
+    (ans, expected, ans == expected)
+  }
+
+  def testLerp(in: Float, expected: Float): (Float, Float, Boolean) = {
+    val ans = util.Math.lerp(0, 1000, in)
+    (ans, expected, ans == expected)
   }
 }
