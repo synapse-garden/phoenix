@@ -8,12 +8,10 @@ object Math {
     f(v, lower, upper)
   }
 
-  def defaultClamp( v: Float, upper: Float, lower: Float ): Float = {
-    v match {
-      case v if v > upper => upper
-      case v if v < lower => lower
-      case _ => lower
-    }
+  def defaultClamp( v: Float, lower: Float, upper: Float ): Float = {
+      if( v > upper ) upper
+      else if( v < lower ) lower
+      else v
   }
 
   def test(x: Float): Float = 2f * x

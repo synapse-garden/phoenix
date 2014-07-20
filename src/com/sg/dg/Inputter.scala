@@ -4,12 +4,11 @@
 
 package com.sg.dg
 
-import org.lwjgl.input.Keyboard.getEventKey
+import org.lwjgl.input.Mouse
 import org.lwjgl.input.Keyboard
 import collection.mutable.HashMap
 
 object Inputter {
-
   val keysDown = HashMap[Int, Boolean](Keyboard.KEY_ESCAPE -> false).withDefaultValue(false)
 
   var (mouseX, mouseY) = (0, 0)
@@ -18,5 +17,7 @@ object Inputter {
 
   def update {
     while( Keyboard.next ) keysDown += Keyboard.getEventKey() -> true
+    mouseX = Mouse.getX
+    mouseY = Mouse.getY
   }
 }

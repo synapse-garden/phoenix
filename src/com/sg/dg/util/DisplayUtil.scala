@@ -36,4 +36,7 @@ object DisplayUtil {
   def destroyDisplay() {
     Display destroy()
   }
+
+  def height: Int = Display getHeight
+  def width: Int = Display getWidth
 }

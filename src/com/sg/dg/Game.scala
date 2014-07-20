@@ -12,7 +12,6 @@ import org.joda.time
 object Game extends App {
   val FRAMERATE = 60
   val MS_PER_FRAME = (1 / FRAMERATE.toFloat * 1000f).toLong
-  val done = false
 
   InitUtil init()
   gameLoop()
@@ -22,7 +21,7 @@ object Game extends App {
     val loopTime = time.DateTime.now.getMillis
 
     // TODO: Mouse shit in Inputter
-    World.setColor( new RGBColor( .2f, .4f, .6f ) )
+//    World.setColor( new RGBColor( .2f, .4f, .6f ) )
 
     Inputter.update
     World.update
