@@ -9,6 +9,7 @@ Display,
 DisplayMode
 }
 import java.lang.System.err
+import com.sg.dg.gfx.Shaders
 
 object DisplayUtil {
   private var (w, h) = (0, 0)
@@ -48,6 +49,10 @@ object DisplayUtil {
       case e: Exception => err.println("Error setting up Display")
         sys exit 0
     }
+  }
+
+  def setupShaders() {
+    Shaders.loadAndUseShaders( )
   }
 
   def destroyDisplay() {

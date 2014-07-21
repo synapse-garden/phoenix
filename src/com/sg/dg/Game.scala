@@ -12,26 +12,27 @@ import com.sg.dg.reality.World
 
 object Game extends App {
   val FRAMERATE = 60
-  val MS_PER_FRAME = (1 / FRAMERATE.toFloat * 1000f).toLong
+  val MS_PER_FRAME = (1 / FRAMERATE.toFloat * 1000f).toFloat
 
   InitUtil init()
+  World init()
   gameLoop()
   DestroyUtil destroy()
 
   def gameLoop() {
     val loopTime = time.DateTime.now.getMillis
 
-    Inputter.update
-    World.update
-    Displayer.update
-
+    Inputter.update()
     val die = DisplayUtil.die || Inputter.exitRequested
+
+    World.update()
+    Displayer.update()
 
     val diff = time.DateTime.now.getMillis - loopTime
     if( diff > 0 ) Thread sleep( diff )
 
-    Displayer draw
+    Displayer.draw()
 
-    if( !die ) gameLoop
+    if( !die ) gameLoop()
   }
 }
