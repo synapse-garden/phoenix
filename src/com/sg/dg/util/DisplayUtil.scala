@@ -11,6 +11,21 @@ DisplayMode
 import java.lang.System.err
 
 object DisplayUtil {
+  private var (w, h) = (0, 0)
+  private var (wDiv2, hDiv2) = (0, 0)
+
+  private def setDim(newW: Int, newH: Int) {
+    w = newW
+    h = newH
+    wDiv2 = (newW / 2f).toInt
+    hDiv2 = (newH / 2f).toInt
+  }
+
+  def width: Int = w
+  def height: Int = h
+  def halfHeight: Int = hDiv2
+  def halfWidth: Int = wDiv2
+
   def die: Boolean = Display isCloseRequested
 
   def setupDisplay() {
@@ -26,7 +41,9 @@ object DisplayUtil {
       Display setTitle "LWJGL Test"
       Display setVSyncEnabled true
       Display setDisplayModeAndFullscreen dm
-      Display create
+      Display create( )
+
+      setDim( dm.getWidth, dm.getHeight )
     } catch {
       case e: Exception => err.println("Error setting up Display")
         sys exit 0
@@ -36,9 +53,5 @@ object DisplayUtil {
   def destroyDisplay() {
     Display destroy()
   }
-
-  def height: Int = Display getHeight
-  def width: Int = Display getWidth
-  def halfHeight: Int = height/2
-  def halfWidth: Int = width/2
 }
+
