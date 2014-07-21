@@ -4,6 +4,8 @@
 
 package com.sg.dg
 
+import com.sg.dg.util.GLUtil
+import com.sg.dg.util.GLCamera
 import org.lwjgl.opengl.GL11._
 import org.lwjgl.util.glu.GLU
 
@@ -19,5 +21,7 @@ object Displayer {
   }
 
   def update() {
+    GLCamera.updateCamera()
+    GLCamera.lookThrough()
   }
 }
