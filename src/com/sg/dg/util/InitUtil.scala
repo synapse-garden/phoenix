@@ -11,6 +11,6 @@ object InitUtil {
   def init() {
     setupDisplay()
     setupGL( DisplayUtil.width, DisplayUtil.height )
-    GLCamera setupCamera(0f, 1f, 0f)
+    GLCamera setupCamera(0f, 1f, -10.0f)
   }
 }

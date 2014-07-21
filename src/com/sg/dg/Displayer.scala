@@ -16,12 +16,12 @@ object Displayer {
   def draw() {
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT )
     glLoadIdentity
+    GLCamera.lookThrough
     World.box.draw
     Display update
   }
 
   def update() {
     GLCamera.updateCamera()
-    GLCamera.lookThrough()
   }
 }
