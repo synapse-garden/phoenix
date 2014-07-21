@@ -7,32 +7,23 @@ package com.sg.dg.util
 import com.sg.dg.util.Math._
 
 object Noise {
-  def simplex(dimension: Int, seed: Int, detail: Float,
+  def simplex(dimension: Int, seed: Int, detail: Float, octaves: Int,
           xin: Double,
           yin: Double = 0d,
           zin: Double = 0d,
           win: Double = 0d): Double = {
-
-    if( dimension == 1 ) noise1D(xin, 0d, 0d, 0d)
-    if( dimension == 2 ) noise2D(xin, yin, 0d, 0d)
-    if( dimension == 3 ) noise3D(xin, yin, zin, 0d)
-    if( dimension == 4 ) noise4D(xin, yin, zin, win)
-    else 0
-
-    /*if( dimension == 1 ) fractalize( noise1D(xin, 0d, 0d, 0d), detail, 4 )
-    if( dimension == 2 ) fractalize( noise2D(xin, yin, 0d, 0d), detail, 4 )
-    if( dimension == 3 ) fractalize( noise3D(xin, yin, zin, 0d), detail, 4 )
-    if( dimension == 4 ) fractalize( noise4D(xin, yin, zin, win), detail, 4 )
-
-    def fractalize( noise: (Double, Double, Double, Double) => Double, detail: Float, octaves: Int ): Double = {
-      var oct = 0
-      val ratio = 0.333f
-      noise
-
-      for( oct <- octaves ){
-        lerp( 0, noise, ratio)
-      }
-    }*/
+    val ratio = 0.5f
+    var oct = 0
+    var sum = 0f
+    for( oct <- 0 to octaves ){
+      val scale = math.pow(ratio,oct)
+      if (dimension == 1) { sum = lerp( sum, noise( xin*scale ).toFloat, ratio) }
+      if (dimension == 2) { sum = lerp( sum, noise( xin*scale, yin*scale ).toFloat, ratio) }
+      if (dimension == 3) { sum = lerp( sum, noise( xin*scale, yin*scale, zin*scale ).toFloat, ratio) }
+      if (dimension == 4) { sum = lerp( sum, noise( xin*scale, yin*scale, zin*scale, win*scale ).toFloat, ratio) }
+      else sum
+    }
+    sum
   }
 
   // Random offset values to prevent accidental aligning and grid artifacts
@@ -113,7 +104,7 @@ object Noise {
     * @param x x coordinate, must be in range of [-2E-8, +2E-8].
     * @return simplex noise value for the specified coordinate.
     */
-  def noise1D(x: Double, y: Double, z: Double, w: Double): Double = {
+  def noise(x: Double): Double = {
     val pix = ifloor(x * F1)
 
     // The x distance from the cell origin
@@ -165,7 +156,7 @@ object Noise {
     * @param y y coordinate, must be in range of [-2E-8, +2E-8].
     * @return simplex noise value for the specified coordinates.
     */
-  def noise2D(x: Double, y: Double, z: Double, w: Double): Double = {
+  def noise(x: Double, y: Double): Double = {
     // Skew the (x,y) space to determine which cell of 2 simplices we're in
     val s = (x + y) * F2 // Hairy factor for 2D skewing
     val pix = ifloor(x + s)
@@ -242,7 +233,7 @@ object Noise {
     * @param z z coordinate, must be in range of [-2E-8, +2E-8].
     * @return simplex noise value for the specified coordinates.
     */
-  def noise3D(x: Double, y: Double, z: Double, w: Double): Double = {
+  def noise(x: Double, y: Double, z: Double): Double = {
     // Skew the (x,y,z) space to determine which cell of 6 simplices we're in
     val s = (x + y + z) * F3 // Factor for 3D skewing
     val pix = ifloor(x + s)
@@ -405,7 +396,7 @@ object Noise {
     * @param w w coordinate, must be in range of [-2E-8, +2E-8].
     * @return simplex noise value for the specified coordinates.
     */
-  def noise4D(x: Double, y: Double, z: Double, w: Double): Double = {
+  def noise(x: Double, y: Double, z: Double, w: Double): Double = {
     // Skew the (x,y,z,w) space to determine which cell of 24 simplices we're in
     val s = (x + y + z + w) * F4 // Factor for 4D skewing
     val pix = ifloor(x + s)

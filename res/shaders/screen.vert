@@ -1,3 +1,5 @@
+import com.sg.dg.util.Noise._
+import com.sg.dg.util.Math._
 varying vec4 vertColor;
 
 void main() {
