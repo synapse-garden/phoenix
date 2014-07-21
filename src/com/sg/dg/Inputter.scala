@@ -7,20 +7,26 @@ package com.sg.dg
 import org.lwjgl.input.Mouse
 import org.lwjgl.input.Keyboard
 import collection.mutable.HashMap
+import com.sg.dg.util.DisplayUtil
+import com.sg.dg.util.Math
 
 object Inputter {
   val keysDown = HashMap[Int, Boolean](Keyboard.KEY_ESCAPE -> false).withDefaultValue(false)
 
   var (mouseX, mouseY) = (0, 0)
   var (mouseDX, mouseDY) = (0, 0)
+  var (mouseModDX, mouseModDY) = (0, 0)
 
   def exitRequested: Boolean = keysDown(Keyboard.KEY_ESCAPE)
 
   def update {
     while( Keyboard.next ) keysDown += Keyboard.getEventKey() -> true
-    mouseX = Mouse.getX
+    mouseX = Mouse.getX - DisplayUtil.halfWidth
+    mouseY = Mouse.getY - DisplayUtil.halfHeight
     mouseDX = Mouse.getDX
-    mouseY = Mouse.getY
     mouseDY = Mouse.getDY
+    mouseModDX = Math.lerp( mouseModDX, mouseDX, 0.15f ).toInt
+    mouseModDY = Math.lerp( mouseModDY, mouseDY, 0.15f ).toInt
+    //Mouse.setCursorPosition(-mouseDX, -mouseDY)
   }
 }

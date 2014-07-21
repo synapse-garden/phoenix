@@ -39,4 +39,6 @@ object DisplayUtil {
 
   def height: Int = Display getHeight
   def width: Int = Display getWidth
+  def halfHeight: Int = height/2
+  def halfWidth: Int = width/2
 }
