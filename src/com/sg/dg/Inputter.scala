@@ -25,8 +25,8 @@ object Inputter {
     mouseY = Mouse.getY - DisplayUtil.halfHeight
     mouseDX = mouseX
     mouseDY = mouseY
-    mouseModDX = Math.lerp( mouseModDX, mouseDX, 0.15f )
-    mouseModDY = Math.lerp( mouseModDY, mouseDY, 0.15f )
+    mouseModDX = Math.lerp( mouseModDX, mouseDX, 0.2f )
+    mouseModDY = Math.lerp( mouseModDY, mouseDY, 0.2f )
     Mouse.setCursorPosition( DisplayUtil.halfWidth, DisplayUtil.halfHeight )
   }
 }
