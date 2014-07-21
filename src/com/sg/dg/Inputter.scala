@@ -15,7 +15,7 @@ object Inputter {
 
   var (mouseX, mouseY) = (0, 0)
   var (mouseDX, mouseDY) = (0, 0)
-  var (mouseModDX, mouseModDY) = (0, 0)
+  var (mouseModDX, mouseModDY) = (0f, 0f)
 
   def exitRequested: Boolean = keysDown(Keyboard.KEY_ESCAPE)
 
@@ -25,8 +25,8 @@ object Inputter {
     mouseY = Mouse.getY - DisplayUtil.halfHeight
     mouseDX = Mouse.getDX
     mouseDY = Mouse.getDY
-    mouseModDX = Math.lerp( mouseModDX, mouseDX, 0.15f ).toInt
-    mouseModDY = Math.lerp( mouseModDY, mouseDY, 0.15f ).toInt
+    mouseModDX = Math.lerp( mouseModDX, mouseDX, 0.2f )
+    mouseModDY = Math.lerp( mouseModDY, mouseDY, 0.2f )
     //Mouse.setCursorPosition(-mouseDX, -mouseDY)
   }
 }
