@@ -21,7 +21,7 @@ object Math {
     (((v-inputLower)/domain)*mappedUpper)+mappedLower
   }
 
-  def lerp( a: Float, b: Float, blend: Float ): Float = {
+  def lerp( a: Float, b: Float, blend: Float = 0.5f ): Float = {
     b*blend + a*(1-blend)
   }
 }
