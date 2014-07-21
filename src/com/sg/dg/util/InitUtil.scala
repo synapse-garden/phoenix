@@ -4,13 +4,14 @@
 
 package com.sg.dg.util
 
-import com.sg.dg.util.DisplayUtil.setupDisplay
+import com.sg.dg.util.DisplayUtil
 import com.sg.dg.util.GLUtil.setupGL
 
 object InitUtil {
   def init() {
-    setupDisplay()
+    DisplayUtil.setupDisplay()
+    DisplayUtil.setupShaders()
     setupGL( DisplayUtil.width, DisplayUtil.height )
-    GLCamera setupCamera(0f, 2f, -9.0f)
+    GLCamera setupCamera(0f, 0f, -10.0f)
   }
 }
