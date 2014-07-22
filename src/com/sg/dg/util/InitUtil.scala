@@ -12,6 +12,6 @@ object InitUtil {
     DisplayUtil.setupDisplay( )
     DisplayUtil.setupShaders()
     setupGL( DisplayUtil.width, DisplayUtil.height )
-    GLCamera setupCamera(0f, 0f, -10.0f)
+    GLCamera setupCamera(0f, 1.2f, -8.0f)
   }
 }

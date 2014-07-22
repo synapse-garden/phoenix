@@ -25,8 +25,8 @@ object GLCamera {
   }
 
   def updateCamera( ){
-    yaw += Inputter.mouseModDX * 0.06f
-    pitch += Inputter.mouseModDY * -0.06f
+    yaw += Inputter.mouseModDX * 0.05f
+    pitch += Inputter.mouseModDY * -0.05f
   }
 
   def lookThrough( ){
