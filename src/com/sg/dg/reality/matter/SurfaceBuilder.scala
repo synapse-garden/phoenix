@@ -14,12 +14,12 @@ object SurfaceBuilder {
 
     val newSfc = new Surface( pId = pId, eId = newId, draw = true,
       Array[Float] (
-         offset,  offset, 0f,
-        -offset,  offset, 0f,
-        -offset, -offset, 0f,
-        -offset, -offset, 0f,
-         offset, -offset, 0f,
-         offset,  offset, 0f
+         offset, 0f,  offset,
+        -offset, 0f,  offset,
+        -offset, 0f, -offset,
+        -offset, 0f, -offset,
+         offset, 0f, -offset,
+         offset, 0f,  offset
       )
     )
 
