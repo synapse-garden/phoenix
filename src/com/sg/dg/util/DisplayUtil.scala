@@ -29,11 +29,11 @@ object DisplayUtil {
 
   def die: Boolean = Display isCloseRequested
 
-  def setupDisplay() {
+  def setupDisplay(fullscreen: Boolean = true) {
     try {
       val dm: DisplayMode = Display.getAvailableDisplayModes.foldLeft(new DisplayMode(640, 480))(
         (m1, m2) =>
-          if( m2.isFullscreenCapable &&
+          if( m2.isFullscreenCapable == fullscreen &&
               m2.getHeight >= m1.getHeight &&
               m2.getWidth  >= m1.getWidth ) m2
           else m1

@@ -9,7 +9,7 @@ import com.sg.dg.util.GLUtil.setupGL
 
 object InitUtil {
   def init() {
-    DisplayUtil.setupDisplay()
+    DisplayUtil.setupDisplay( )
     DisplayUtil.setupShaders()
     setupGL( DisplayUtil.width, DisplayUtil.height )
     GLCamera setupCamera(0f, 0f, -10.0f)
