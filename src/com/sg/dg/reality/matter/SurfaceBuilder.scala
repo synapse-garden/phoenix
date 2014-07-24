@@ -1,7 +1,7 @@
 package com.sg.dg.reality.matter
 
 import com.sg.dg.reality.EntityBuilder
-import com.sg.dg.Displayer
+import com.sg.dg.graphics.Displayer
 
 /**
  * Created by bodie on 7/21/14.

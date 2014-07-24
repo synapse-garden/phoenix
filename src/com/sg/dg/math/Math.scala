@@ -1,4 +1,4 @@
-package com.sg.dg.util
+package com.sg.dg.math
 
 /**
  * Created by bodie on 7/19/14.

@@ -1,7 +1,6 @@
-package com.sg.dg.gfx
+package com.sg.dg.graphics.shaders
 
 import scala.collection.mutable
-import com.sg.dg.util.ShaderUtil
 
 /**
  * Created by bodie on 7/21/14.
@@ -31,7 +30,7 @@ object Shaders {
     // TODO: Handle exceptions
     vShaderId = loadVertexShader( vShaderName )
     fShaderId = loadFragmentShader( fShaderName )
-    shaderProgramId = ShaderUtil.attachAndLinkShaders( vShaderId, fShaderId )
+    shaderProgramId = ShaderHandler.attachAndLinkShaders( vShaderId, fShaderId )
     if( shaderProgramId != 0 )
       useShaders = true
   }
@@ -42,7 +41,7 @@ object Shaders {
       return 0
 
     vertShaderInUse = name
-    ShaderUtil.createVertexShader(filename)
+    ShaderHandler.createVertexShader(filename)
   }
 
   private def loadFragmentShader(name: String): Int = {
@@ -51,15 +50,15 @@ object Shaders {
       return 0
 
     fragShaderInUse = name
-    ShaderUtil.createFragmentShader(filename)
+    ShaderHandler.createFragmentShader(filename)
   }
 
   def useProgram() {
-    ShaderUtil.useShader( shaderProgramId )
+    ShaderHandler.useShader( shaderProgramId )
   }
 
   def endShaders() {
-    ShaderUtil.endShader( )
+    ShaderHandler.endShader( )
   }
 }
 

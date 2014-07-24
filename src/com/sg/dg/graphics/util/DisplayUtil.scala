@@ -2,14 +2,14 @@
  * Created by bodie on 7/19/14.
  */
 
-package com.sg.dg.util
+package com.sg.dg.graphics.util
 
 import org.lwjgl.opengl.{
 Display,
 DisplayMode
 }
 import java.lang.System.err
-import com.sg.dg.gfx.Shaders
+import com.sg.dg.graphics.shaders.Shaders
 
 object DisplayUtil {
   private var (w, h) = (0, 0)

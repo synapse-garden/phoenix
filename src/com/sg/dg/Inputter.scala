@@ -7,8 +7,8 @@ package com.sg.dg
 import org.lwjgl.input.Mouse
 import org.lwjgl.input.Keyboard
 import collection.mutable.HashMap
-import com.sg.dg.util.DisplayUtil
-import com.sg.dg.util.Math
+import com.sg.dg.graphics.util.DisplayUtil
+import com.sg.dg.math.Math
 
 object Inputter {
   val keysDown = HashMap[Int, Boolean](Keyboard.KEY_ESCAPE -> false).withDefaultValue(false)

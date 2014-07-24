@@ -1,10 +1,10 @@
-package com.sg.dg.util
+package com.sg.dg.math
 
 /**
  * Created by kevin on 7/20/14.
  */
 
-import com.sg.dg.util.Math._
+import com.sg.dg.math.Math._
 
 object Noise {
   def simplex(dimension: Int, seed: Int, detail: Float, octaves: Int,

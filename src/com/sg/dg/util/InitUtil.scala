@@ -4,8 +4,9 @@
 
 package com.sg.dg.util
 
-import com.sg.dg.util.DisplayUtil
-import com.sg.dg.util.GLUtil.setupGL
+import com.sg.dg.graphics.util.{DisplayUtil, GLUtil}
+import GLUtil.setupGL
+import com.sg.dg.graphics.GLCamera
 
 object InitUtil {
   def init() {

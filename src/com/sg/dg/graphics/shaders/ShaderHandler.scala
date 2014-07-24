@@ -1,11 +1,12 @@
-package com.sg.dg.util
+package com.sg.dg.graphics.shaders
 
 import org.lwjgl.opengl.{ARBFragmentShader, ARBVertexShader, GL11, ARBShaderObjects}
+import com.sg.dg.util.IOUtil
 
 /**
  * Created by bodie on 7/20/14.
  */
-object ShaderUtil {
+object ShaderHandler {
   def attachAndLinkShaders( vShaderId: Int = 0, fShaderId: Int = 0 ): Int = {
     val shaderProgramId = ARBShaderObjects.glCreateProgramObjectARB()
 

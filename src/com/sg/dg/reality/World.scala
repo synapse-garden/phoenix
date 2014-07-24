@@ -5,7 +5,7 @@
 package com.sg.dg.reality
 
 import scala.collection.mutable
-import com.sg.dg.Displayer
+import com.sg.dg.graphics.Displayer
 
 object World {
   val entities = mutable.HashMap[Int, Entity]().withDefaultValue( null )
