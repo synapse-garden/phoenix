@@ -19,6 +19,14 @@ object Inputter {
 
   def exitRequested: Boolean = keysDown(Keyboard.KEY_ESCAPE)
 
+  def init() {
+    mouseX = DisplayUtil.halfWidth
+    mouseY = DisplayUtil.halfHeight
+    mouseDX = mouseX
+    mouseDY = mouseY
+    Mouse.setCursorPosition( DisplayUtil.halfWidth, DisplayUtil.halfHeight )
+  }
+
   def update() {
     while( Keyboard.next ) keysDown += Keyboard.getEventKey() -> true
     mouseX = Mouse.getX - DisplayUtil.halfWidth
