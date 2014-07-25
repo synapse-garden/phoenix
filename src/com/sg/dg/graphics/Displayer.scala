@@ -38,13 +38,6 @@ object Displayer {
     Display.sync( fps )
   }
 
-  def drawSurfaces( ) {
-    for( id <- surfacesToDraw.keys if surfacesToDraw( id )) {
-      val s = surfaces( id )
-    }
-    GLUtil.exitOnGLError("Error in drawSurfaces")
-  }
-
   def drawFsQuad( ) {
     GL30.glBindVertexArray( Buffers.fsQuadVAOId )
     GL20.glEnableVertexAttribArray( Buffers.fsQuadVAOIndex )
@@ -56,6 +49,13 @@ object Displayer {
     GL30.glBindVertexArray( 0 )
 
     GLUtil.exitOnGLError("Error in drawFsQuad")
+  }
+
+  def drawSurfaces( ) {
+    for( id <- surfacesToDraw.keys if surfacesToDraw( id )) {
+      val s = surfaces( id )
+    }
+    GLUtil.exitOnGLError("Error in drawSurfaces")
   }
 
   def dispose( ) {

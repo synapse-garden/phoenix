@@ -10,6 +10,7 @@ import com.sg.dg.graphics.Displayer
 object GLUtil {
   def setupGL( w: Int, h: Int ) {
     println( "OpenGL version: " + GL11.glGetString( GL11.GL_VERSION ) )
+    GL11.glClearColor( 0.4f, 0.6f, 0.9f, 0f )
   }
 
   def exitOnGLError( errorMessage: String ) {
