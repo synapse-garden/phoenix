@@ -11,15 +11,22 @@ import com.sg.dg.graphics.glbuffers.{BufferHandler, Buffers}
  * Created by bodie on 7/24/14.
  */
 object Displayer {
-  val surfaces = mutable.HashMap[Int, Surface]().withDefaultValue(null)
+  val surfaces = mutable.HashMap[Int, Surface]( ).withDefaultValue(null)
 
-  var surfacesToDraw = mutable.HashMap[Int, Boolean]().withDefaultValue(false)
+  var surfacesToDraw = mutable.HashMap[Int, Boolean]( ).withDefaultValue(false)
 
-  def draw() {
+  def draw( ) {
     GL11 glClear( GL11 GL_COLOR_BUFFER_BIT )
+
+    if( Shaders.useShaders )
+      Shaders.useProgram( )
+
     drawFsQuad
     drawSurfaces
-    Display update()
+    if( Shaders.useShaders )
+      Shaders.endShaders( )
+
+    Display update( )
   }
 
   def enqueueIdToDraw(id: Int) {
@@ -30,8 +37,8 @@ object Displayer {
     surfaces += s.entityId -> s
   }
 
-  def update() {
-    GLCamera.updateCamera()
+  def update( ) {
+    GLCamera.updateCamera( )
   }
 
   def sync( fps: Int = 60 ) {

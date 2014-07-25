@@ -15,13 +15,13 @@ object BufferHandler {
   def initFsQuad( ): (Int, Int) = {
     val vertices = Array[Float] (
     // Left bottom triangle
-    -0.75f,  0.75f, 0f,
-    -0.75f, -0.75f, 0f,
-     0.75f, -0.75f, 0f,
+    -1f,  1f, 0f,
+    -1f, -1f, 0f,
+     1f, -1f, 0f,
     // Right top triangle
-     0.75f, -0.75f, 0f,
-     0.75f,  0.75f, 0f,
-    -0.75f,  0.75f, 0f
+     1f, -1f, 0f,
+     1f,  1f, 0f,
+    -1f,  1f, 0f
     )
 
     val fsQuadVAOId = genVAO( )

@@ -12,25 +12,25 @@ import com.sg.dg.reality.World
 import com.sg.dg.graphics.util.DisplayUtil
 
 object Game extends App {
-  val DEBUG = true
+  val DEBUG = false
   val FRAMERATE = 60
 
-  InitUtil init()
-  World init()
-  gameLoop()
-  DestroyUtil destroy()
+  InitUtil init( )
+  World init( )
+  gameLoop( )
+  DestroyUtil destroy( )
 
-  def gameLoop() {
-    Inputter.update()
+  def gameLoop( ) {
+    Inputter.update( )
     val die = DisplayUtil.die || Inputter.exitRequested
 
-    World.update()
-    Displayer.update()
+    World.update( )
+    Displayer.update( )
 
     Displayer.sync( FRAMERATE )
 
-    Displayer.draw()
+    Displayer.draw( )
 
-    if( !die ) gameLoop()
+    if( !die ) gameLoop( )
   }
 }
