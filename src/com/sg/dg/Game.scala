@@ -25,11 +25,10 @@ object Game extends App {
     val die = DisplayUtil.die || Inputter.exitRequested
 
     World.update( )
+
     Displayer.update( )
-
-    Displayer.sync( FRAMERATE )
-
     Displayer.draw( )
+    Displayer.sync( FRAMERATE )
 
     if( !die ) gameLoop( )
   }

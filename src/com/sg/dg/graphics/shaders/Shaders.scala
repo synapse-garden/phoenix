@@ -20,7 +20,8 @@ object Shaders {
   ).withDefaultValue("ABSENT")
 
   private val fragShaderSources = mutable.HashMap[String, String](
-    "default" -> "res/shaders/screen.frag"
+    "default" -> "res/shaders/screen.frag",
+    "sky" -> "res/shaders/sky.frag"
   ).withDefaultValue("ABSENT")
 
   def vertexShaderNames: List[String] = vertShaderSources.keys.toList

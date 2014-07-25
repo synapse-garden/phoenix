@@ -60,7 +60,7 @@ object DisplayUtil {
   }
 
   def setupShaders() {
-    Shaders.loadAndUseShaders( )
+    Shaders.loadAndUseShaders( fShaderName = "sky" )
   }
 
   def destroyDisplay() {
