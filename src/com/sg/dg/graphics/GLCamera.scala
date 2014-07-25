@@ -31,10 +31,10 @@ object GLCamera {
 
    def lookThrough( ){
      //roatate the pitch around the X axis
-     GL11.glRotatef(pitch, 1.0f, 0.0f, 0.0f)
+     // GL11.glRotatef(pitch, 1.0f, 0.0f, 0.0f)
      //roatate the yaw around the Y axis
-     GL11.glRotatef(yaw, 0.0f, 1.0f, 0.0f)
+     // GL11.glRotatef(yaw, 0.0f, 1.0f, 0.0f)
      //translate to the position vector's location
-     GL11.glTranslatef(cameraX, cameraY, cameraZ)
+     // GL11.glTranslatef(cameraX, cameraY, cameraZ)
    }
  }

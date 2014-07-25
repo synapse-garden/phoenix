@@ -2,67 +2,63 @@ package com.sg.dg.graphics
 
 import scala.collection.mutable
 import com.sg.dg.reality.matter.Surface
-import org.lwjgl.opengl.{GL33, GL32, Display, GL11}
+import org.lwjgl.opengl._
 import com.sg.dg.graphics.shaders.Shaders
+import com.sg.dg.graphics.util.GLUtil
+import com.sg.dg.graphics.glbuffers.Buffers
 
 /**
  * Created by bodie on 7/24/14.
  */
 object Displayer {
-   val surfaces = mutable.HashMap[Int, Surface]().withDefaultValue(null)
+  val surfaces = mutable.HashMap[Int, Surface]().withDefaultValue(null)
 
-   var surfacesToDraw = mutable.HashMap[Int, Boolean]().withDefaultValue(false)
+  var surfacesToDraw = mutable.HashMap[Int, Boolean]().withDefaultValue(false)
 
-   def draw() {
-     GL11 glClear( GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT )
-     GL11 glDrawArrays( GL11.GL_TRIANGLE_STRIP, 0, 4 )
-     GL11 glLoadIdentity()
+  def draw() {
+    GL11 glClear( GL11 GL_COLOR_BUFFER_BIT )
+    drawFsQuad
+    drawSurfaces
+    Display update()
+  }
 
-     GLCamera.lookThrough()
+  def enqueueIdToDraw(id: Int) {
+    surfacesToDraw += id -> true
+  }
 
-     drawSurfaces()
+  def registerSurface(s: Surface) {
+    surfaces += s.entityId -> s
+  }
 
-     Display update()
-   }
+  def update() {
+    GLCamera.updateCamera()
+  }
 
-   def enqueueIdToDraw(id: Int) {
-     surfacesToDraw += id -> true
-   }
+  def sync( fps: Int = 60 ) {
+    Display.sync( fps )
+  }
 
-   def registerSurface(s: Surface) {
-     surfaces += s.entityId -> s
-   }
-
-   def update() {
-     GLCamera.updateCamera()
-   }
-
-    def sync(fps: Int = 60) {
-      Display.sync( fps )
+  def drawSurfaces( ) {
+    for( id <- surfacesToDraw.keys if surfacesToDraw( id )) {
+      val s = surfaces( id )
     }
+    GLUtil.exitOnGLError("Error in drawSurfaces")
+  }
 
-   def drawSurfaces() {
-     if( Shaders.useShaders )
-       Shaders useProgram()
+  def drawFsQuad( ) {
+    GL30.glBindVertexArray( Buffers.fsQuadVAOId )
+    GL20.glEnableVertexAttribArray( Buffers.fsQuadVAOIndex )
 
-     // var vboId = GL15.glGenBuffers()
-     // GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vboId);
-     // GL15.glBufferData(GL15.GL_ARRAY_BUFFER, verticesFloatBuffer, GL15.GL_STREAM_DRAW);
+    GL11.glDrawArrays( GL11.GL_TRIANGLES, Buffers.fsQuadVAOIndex, Buffers.fsQuadVertexCount )
 
-     GL11 glColor3f(0f, 0.707f, 0.707f)
+    // Put everything back to default (deselect)
+    GL20.glDisableVertexAttribArray( Buffers.fsQuadVAOIndex )
+    GL30.glBindVertexArray( 0 )
 
-     GL11 glBegin(GL11 GL_TRIANGLES)
+    GLUtil.exitOnGLError("Error in drawFsQuad")
+  }
 
-     for( id <- surfacesToDraw.keys if surfacesToDraw(id)) {
-       val s = surfaces(id)
-       for (pointCount <- 0 to s.points.length / 3) {
-         GL11 glVertex3f(s.points(pointCount), s.points(pointCount + 1), s.points(pointCount + 2))
-       }
-     }
-
-     GL11 glEnd()
-
-     if( Shaders.useShaders )
-       Shaders endShaders()
-   }
- }
+  def dispose( ) {
+    Buffers.dispose( )
+  }
+}

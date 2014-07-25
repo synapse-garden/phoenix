@@ -10,7 +10,11 @@ object SurfaceBuilder {
 
   def newSquare( pId: Int, dim: Float = 4.0f ): Surface = {
     val offset = dim/2f
-    val newId = EntityBuilder.getId
+    val newId = EntityBuilder.getId( )
+
+    val newSfc = new Surface( pId = pId, eId = newId, draw = true, -1 )
+
+    /*
 
     val newSfc = new Surface( pId = pId, eId = newId, draw = true,
       Array[Float] (
@@ -22,6 +26,8 @@ object SurfaceBuilder {
          offset, 0f,  offset
       )
     )
+
+    */
 
     Displayer.registerSurface( newSfc )
 

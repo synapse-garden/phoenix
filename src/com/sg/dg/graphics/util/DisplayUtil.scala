@@ -4,14 +4,12 @@
 
 package com.sg.dg.graphics.util
 
-import org.lwjgl.opengl.{
-Display,
-DisplayMode
-}
+import org.lwjgl.opengl.{PixelFormat, ContextAttribs, Display, DisplayMode}
 import java.lang.System.err
 import com.sg.dg.graphics.shaders.Shaders
 
 object DisplayUtil {
+  private var _isCreated: Boolean = false
   private var (w, h) = (0, 0)
   private var (wDiv2, hDiv2) = (0, 0)
 
@@ -21,6 +19,8 @@ object DisplayUtil {
     wDiv2 = (newW / 2f).toInt
     hDiv2 = (newH / 2f).toInt
   }
+
+  def isCreated = _isCreated
 
   def width: Int = w
   def height: Int = h
@@ -39,16 +39,24 @@ object DisplayUtil {
           else m1
       )
 
+      val contextAttributes = new ContextAttribs( 4, 4 )
+        .withForwardCompatible( true )
+        .withProfileCore( true )
+      val pixelFormat = new PixelFormat
+
       Display setTitle "LWJGL Test"
       Display setVSyncEnabled true
       Display setDisplayModeAndFullscreen dm
-      Display create( )
+      Display.create(pixelFormat, contextAttributes)
 
       setDim( dm.getWidth, dm.getHeight )
+
     } catch {
       case e: Exception => err.println("Error setting up Display")
         sys exit 0
     }
+    _isCreated = true
+    GLUtil.exitOnGLError( "Error in setupDisplay" )
   }
 
   def setupShaders() {

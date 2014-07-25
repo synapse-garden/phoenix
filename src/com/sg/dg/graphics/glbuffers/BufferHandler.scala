@@ -1,21 +1,90 @@
 package com.sg.dg.graphics.glbuffers
 
-import org.lwjgl.opengl.{GL31, GL15}
+import org.lwjgl.opengl._
 import scala.collection.mutable
+import java.nio.FloatBuffer
+import org.lwjgl.BufferUtils
 
 /**
  * Created by bodie on 7/24/14.
  */
 object BufferHandler {
-  private def vaoDefined = false
+  private val stride = 0
+  private val normalized = false
 
-  def makeVAO(): Int = {
-    val newId = GL15.glGenBuffers()
-    GL15.glBindBuffer( GL31.GL_UNIFORM_BUFFER, newId )
-    newId
+  def initFsQuad( ): (Int, Int) = {
+    val vertices = Array[Float] (
+    // Left bottom triangle
+    -1f,  1f, 0f,
+    -1f, -1f, 0f,
+     1f, -1f, 0f,
+    // Right top triangle
+     1f, -1f, 0f,
+     1f,  1f, 0f,
+    -1f,  1f, 0f
+    )
+
+    val fsQuadVAOId = genVAO( )
+    val fsQuadVBOId = genVBO( )
+    bindVAO( fsQuadVAOId )
+    bindVBO( fsQuadVBOId )
+    putVBOVertexData( vertices, Buffers.fsQuadVAOIndex )
+    unbindVBO( fsQuadVBOId )
+    unbindVAO( fsQuadVAOId )
+
+    (fsQuadVAOId, fsQuadVBOId)
+  }
+
+  def putVBOVertexData( vertices: Array[Float], vaoIndex: Int ) {
+    // Sending data to OpenGL requires the usage of (flipped) byte buffers
+    val verticesBuffer = BufferUtils.createFloatBuffer( vertices.length )
+    verticesBuffer.put( vertices )
+    verticesBuffer.flip( )
+
+    // Use the buffer data
+    GL15.glBufferData( GL15.GL_ARRAY_BUFFER, verticesBuffer, GL15.GL_STATIC_DRAW )
+    // Bind to the point in the currently selected VAO
+    GL20.glVertexAttribPointer( vaoIndex, 3, GL11.GL_FLOAT, normalized, stride, 0 )
+  }
+
+  def genVBO(): Int = {
+    GL15.glGenBuffers( )
+  }
+
+  def bindVBO(id: Int) {
+    GL15.glBindBuffer( GL15.GL_ARRAY_BUFFER, id )
+  }
+
+  def unbindVBO( id: Int ) {
+    bindVBO( 0 )
+  }
+
+  def genVAO(): Int = {
+    GL30.glGenVertexArrays( )
+  }
+
+  def bindVAO( id: Int ) {
+    GL30.glBindVertexArray( id )
+  }
+
+  def unbindVAO( id: Int ) {
+    bindVAO( 0 )
+  }
+
+  def disableVBOAt( index: Int ) {
+    GL20.glDisableVertexAttribArray( index )
+  }
+
+  def deleteVBO( id: Int ) {
+    GL15.glBindBuffer( GL15.GL_ARRAY_BUFFER, id )
+    GL15.glDeleteBuffers( id )
+  }
+
+  def deleteVAO( id: Int ) {
+    GL30.glBindVertexArray( id )
+    GL30.glDeleteVertexArrays( id )
   }
 }
-
   /*
 
 Request a memory location (returns integer number, the ID, of the object)
@@ -23,24 +92,6 @@ Bind the object using the ID
 Manipulate the object (the object is whichever object OpenGL is currently bound to)
 Unbind the object using the ID
 first bind the VAO and then call “glVertexAttributePointer”
-
-// OpenGL expects vertices to be defined counter clockwise by default
-float[] vertices = {
-// Left bottom triangle
--0.5f, 0.5f, 0f,
--0.5f, -0.5f, 0f,
-0.5f, -0.5f, 0f,
-// Right top triangle
-0.5f, -0.5f, 0f,
-0.5f, 0.5f, 0f,
--0.5f, 0.5f, 0f
-};
-// Sending data to OpenGL requires the usage of (flipped) byte buffers
-FloatBuffer verticesBuffer = BufferUtils.createFloatBuffer(vertices.length);
-verticesBuffer.put(vertices);
-verticesBuffer.flip();
-
-vertexCount = 6;
 
 Linking a VBO with a VAO's attribute list:
  - “glVertexAttribPointer” as parameters it needs to know the following:
