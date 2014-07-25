@@ -37,6 +37,10 @@ object Displayer {
      GLCamera.updateCamera()
    }
 
+    def sync(fps: Int = 60) {
+      Display.sync( fps )
+    }
+
    def drawSurfaces() {
      if( Shaders.useShaders )
        Shaders useProgram()
