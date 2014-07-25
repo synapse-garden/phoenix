@@ -2,7 +2,7 @@ package com.sg.dg.graphics
 
 import scala.collection.mutable
 import com.sg.dg.reality.matter.Surface
-import org.lwjgl.opengl.{Display, GL11}
+import org.lwjgl.opengl.{GL33, GL32, Display, GL11}
 import com.sg.dg.graphics.shaders.Shaders
 
 /**
@@ -13,9 +13,9 @@ object Displayer {
 
    var surfacesToDraw = mutable.HashMap[Int, Boolean]().withDefaultValue(false)
 
-
    def draw() {
      GL11 glClear( GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT )
+     GL11 glDrawArrays( GL11.GL_TRIANGLE_STRIP, 0, 4 )
      GL11 glLoadIdentity()
 
      GLCamera.lookThrough()

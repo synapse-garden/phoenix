@@ -8,10 +8,11 @@ import com.sg.dg.graphics.util.{DisplayUtil, GLUtil}
 import GLUtil.setupGL
 import com.sg.dg.graphics.GLCamera
 import com.sg.dg.Inputter
+import com.sg.dg.Game
 
 object InitUtil {
   def init() {
-    DisplayUtil.setupDisplay( )
+    DisplayUtil.setupDisplay( fullscreen = !Game.DEBUG )
     Inputter.init()
     DisplayUtil.setupShaders()
     setupGL( DisplayUtil.width, DisplayUtil.height )
