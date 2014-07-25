@@ -12,7 +12,7 @@ import com.sg.dg.reality.World
 import com.sg.dg.graphics.util.DisplayUtil
 
 object Game extends App {
-  val DEBUG = false
+  val DEBUG = true
   val FRAMERATE = 60
 
   InitUtil init()

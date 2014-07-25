@@ -16,9 +16,9 @@ object Buffers {
   var vboId: Int = 0
 
   def buildFsQuadVBO( ) {
-    val bufferIds = BufferHandler.initFsQuad( )
-    fsQuadVAOId = bufferIds._1
-    fsQuadVBOId = bufferIds._2
+    val (vaoId, vboId) = BufferHandler.initFsQuad( )
+    fsQuadVAOId = vaoId
+    fsQuadVBOId = vboId
 
     GLUtil.exitOnGLError( "Error in setupQuad" )
   }

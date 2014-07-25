@@ -5,7 +5,7 @@ import com.sg.dg.reality.matter.Surface
 import org.lwjgl.opengl._
 import com.sg.dg.graphics.shaders.Shaders
 import com.sg.dg.graphics.util.GLUtil
-import com.sg.dg.graphics.glbuffers.Buffers
+import com.sg.dg.graphics.glbuffers.{BufferHandler, Buffers}
 
 /**
  * Created by bodie on 7/24/14.
@@ -39,20 +39,21 @@ object Displayer {
   }
 
   def drawFsQuad( ) {
-    GL30.glBindVertexArray( Buffers.fsQuadVAOId )
+    BufferHandler.bindVAO( Buffers.fsQuadVAOId )
+
     GL20.glEnableVertexAttribArray( Buffers.fsQuadVAOIndex )
 
     GL11.glDrawArrays( GL11.GL_TRIANGLES, Buffers.fsQuadVAOIndex, Buffers.fsQuadVertexCount )
 
-    // Put everything back to default (deselect)
     GL20.glDisableVertexAttribArray( Buffers.fsQuadVAOIndex )
-    GL30.glBindVertexArray( 0 )
+
+    BufferHandler.unbindVAO( )
 
     GLUtil.exitOnGLError("Error in drawFsQuad")
   }
 
   def drawSurfaces( ) {
-    for( id <- surfacesToDraw.keys if surfacesToDraw( id )) {
+    for( id <- surfacesToDraw.keys if surfacesToDraw( id ) ) {
       val s = surfaces( id )
     }
     GLUtil.exitOnGLError("Error in drawSurfaces")

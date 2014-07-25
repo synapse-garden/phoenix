@@ -29,8 +29,8 @@ object BufferHandler {
     bindVAO( fsQuadVAOId )
     bindVBO( fsQuadVBOId )
     putVBOVertexData( vertices, Buffers.fsQuadVAOIndex )
-    unbindVBO( fsQuadVBOId )
-    unbindVAO( fsQuadVAOId )
+    unbindVBO( )
+    unbindVAO( )
 
     (fsQuadVAOId, fsQuadVBOId)
   }
@@ -55,7 +55,7 @@ object BufferHandler {
     GL15.glBindBuffer( GL15.GL_ARRAY_BUFFER, id )
   }
 
-  def unbindVBO( id: Int ) {
+  def unbindVBO( ) {
     bindVBO( 0 )
   }
 
@@ -67,7 +67,7 @@ object BufferHandler {
     GL30.glBindVertexArray( id )
   }
 
-  def unbindVAO( id: Int ) {
+  def unbindVAO( ) {
     bindVAO( 0 )
   }
 
