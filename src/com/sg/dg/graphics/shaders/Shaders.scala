@@ -2,6 +2,7 @@ package com.sg.dg.graphics.shaders
 
 import com.sg.dg.Inputter
 import com.sg.dg.graphics.util.{GLUtil, DisplayUtil}
+import org.joda.time
 
 import scala.collection.mutable
 import org.lwjgl.opengl.GL20
@@ -80,9 +81,9 @@ object Shaders {
   }
 
   def updateUniforms( ) {
-    GL20.glUniform1f( uniforms( "time" ), System.currentTimeMillis( ) / 1000.0f )
+    GL20.glUniform1f( uniforms( "time" ), time.DateTime.now.getMillis/100.0f )
     GL20.glUniform2i( uniforms( "resolution" ), DisplayUtil.width, DisplayUtil.height )
-    GL20.glUniform2f( uniforms( "mouse" ), Inputter.mouseModDX, Inputter.mouseModDY )
+    GL20.glUniform2f( uniforms( "mouse" ), Inputter.mouseX, Inputter.mouseY )
     GLUtil.exitOnGLError( "Error in updateUniforms" )
   }
 
