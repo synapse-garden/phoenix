@@ -63,6 +63,14 @@ object BufferHandler {
     GL30.glGenVertexArrays( )
   }
 
+  def enableVAO( id: Int ) {
+    GL20.glEnableVertexAttribArray( id )
+  }
+
+  def disableVAO( id: Int ) {
+    GL20.glDisableVertexAttribArray( id )
+  }
+
   def bindVAO( id: Int ) {
     GL30.glBindVertexArray( id )
   }
