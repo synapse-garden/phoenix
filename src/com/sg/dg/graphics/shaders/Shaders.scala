@@ -81,16 +81,15 @@ object Shaders {
   }
 
   def updateUniforms( ) {
-    GL20.glUniform1f( uniforms( "time" ), time.DateTime.now.getMillis/100.0f )
+    GL20.glUniform1f( uniforms( "time" ), Inputter.timeMs / 1000.0f )
     GL20.glUniform2i( uniforms( "resolution" ), DisplayUtil.width, DisplayUtil.height )
     GL20.glUniform2f( uniforms( "mouse" ), Inputter.mouseX, Inputter.mouseY )
-    GLUtil.exitOnGLError( "Error in updateUniforms" )
+    GLUtil.exitOnGLError( )
   }
 
   def endProgram( ) {
     ShaderHandler.endProgram( )
   }
 }
-
 
 

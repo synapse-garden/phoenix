@@ -19,16 +19,10 @@ object Displayer {
   def draw( ) {
     GL11 glClear( GL11 GL_COLOR_BUFFER_BIT )
 
-    if( Shaders.useShaders )
-      Shaders.useProgram( )
-
-    Shaders.updateUniforms( )
     drawFsQuad
     drawSurfaces
 
     if( Shaders.useShaders )
-      Shaders.endProgram( )
-
     Display update( )
   }
 
@@ -42,6 +36,7 @@ object Displayer {
 
   def update( ) {
     GLCamera.updateCamera( )
+    Shaders.updateUniforms( )
   }
 
   def sync( fps: Int = 60 ) {
@@ -55,17 +50,18 @@ object Displayer {
     BufferHandler.disableVAO( Buffers.fsQuadVAOIndex )
     BufferHandler.unbindVAO( )
 
-    GLUtil.exitOnGLError( "Error in drawFsQuad" )
+    GLUtil.exitOnGLError( )
   }
 
   def drawSurfaces( ) {
     for( id <- surfacesToDraw.keys if surfacesToDraw( id ) ) {
       val s = surfaces( id )
     }
-    GLUtil.exitOnGLError( "Error in drawSurfaces" )
+    GLUtil.exitOnGLError( )
   }
 
   def dispose( ) {
+    Shaders.endProgram( )
     Buffers.dispose( )
   }
 }

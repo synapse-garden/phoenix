@@ -13,7 +13,6 @@ void main( void ) {
 
     // vec2 sunPos = mouse;
     vec2 sunPos = vec2( 0.75, sin( time*0.4 )*0.45 + 0.43 );
-    //vec2 sunPos = vec2( 0.75, 0.5 );
 
     vec3 atmo = vec3( 0.7, 0.9, 1.2 );
 

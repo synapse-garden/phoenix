@@ -20,7 +20,7 @@ object Buffers {
     fsQuadVAOId = vaoId
     fsQuadVBOId = vboId
 
-    GLUtil.exitOnGLError( "Error in setupQuad" )
+    GLUtil.exitOnGLError( )
   }
 
   def dispose( ) {

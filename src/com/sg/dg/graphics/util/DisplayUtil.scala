@@ -31,7 +31,7 @@ object DisplayUtil {
 
   def setupDisplay(fullscreen: Boolean = true) {
     try {
-      val dm: DisplayMode = Display.getAvailableDisplayModes.foldLeft(new DisplayMode(640, 480))(
+      val dm: DisplayMode = Display.getAvailableDisplayModes.foldLeft(new DisplayMode(1280, 800))(
         (m1, m2) =>
           if( m2.isFullscreenCapable == fullscreen &&
               m2.getHeight >= m1.getHeight &&
@@ -52,17 +52,20 @@ object DisplayUtil {
       setDim( dm.getWidth, dm.getHeight )
 
     } catch {
-      case e: Exception => err.println("Error setting up Display")
+      case e: Exception =>
+        err.println( "Error setting up Display: " + e.getMessage )
         sys exit 0
     }
     _isCreated = true
-    GLUtil.exitOnGLError( "Error in setupDisplay" )
+    GLUtil.exitOnGLError( )
   }
 
   def setupShaders() {
     Shaders.loadAndUseShaders( fShaderName = "sky" )
-    if( Shaders.useShaders )
+    if( Shaders.useShaders ) {
+      Shaders.useProgram( )
       Shaders.setUniforms( )
+    }
   }
 
   def destroyDisplay() {

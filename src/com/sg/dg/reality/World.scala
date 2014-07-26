@@ -17,9 +17,9 @@ object World {
   }
 
   def init() {
-    val newId = EntityBuilder.getId()
-    entities += (newId -> EntityBuilder.newDefaultEntity( id = newId ) )
-    addToUpdateList(newId)
+    val newId = EntityBuilder.getId( )
+    entities += ( newId -> EntityBuilder.newDefaultEntity( id = newId ) )
+    addToUpdateList( newId )
   }
 
   def update() {
