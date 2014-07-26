@@ -61,6 +61,7 @@ object DisplayUtil {
 
   def setupShaders() {
     Shaders.loadAndUseShaders( fShaderName = "sky" )
+    Shaders.setUniforms( )
   }
 
   def destroyDisplay() {

@@ -39,6 +39,7 @@ object Displayer {
 
   def update( ) {
     GLCamera.updateCamera( )
+    Shaders.updateUniforms( )
   }
 
   def sync( fps: Int = 60 ) {
