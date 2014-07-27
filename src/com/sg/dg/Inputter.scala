@@ -32,6 +32,8 @@ object Inputter {
     mouseDY = Mouse.getY - DisplayUtil.halfHeight
     mouseX = mouseX + mouseDX
     mouseY = mouseY + mouseDY
+    mouseModX = Math.lerp( mouseModX, mouseX, 0.2f )
+    mouseModY = Math.lerp( mouseModY, mouseY, 0.2f )
     mouseModDX = Math.lerp( mouseModDX, mouseDX, 0.2f )
     mouseModDY = Math.lerp( mouseModDY, mouseDY, 0.2f )
     Mouse.setCursorPosition( DisplayUtil.halfWidth, DisplayUtil.halfHeight )
@@ -40,6 +42,7 @@ object Inputter {
   private var (_mouseX, _mouseY) = (0, 0)
   var (mouseDX, mouseDY) = (0, 0)
   var (mouseModDX: Float, mouseModDY: Float) = (0f, 0f)
+  var (mouseModX: Float, mouseModY: Float) = (0f, 0f)
 
   def mouseX = _mouseX
   def mouseY = _mouseY
