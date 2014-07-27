@@ -83,7 +83,7 @@ object Shaders {
   def updateUniforms( ) {
     GL20.glUniform1f( uniforms( "time" ), Inputter.timeMs / 1000.0f )
     GL20.glUniform2i( uniforms( "resolution" ), DisplayUtil.width, DisplayUtil.height )
-    GL20.glUniform2f( uniforms( "mouse" ), Inputter.mouseX, Inputter.mouseY )
+    GL20.glUniform2f( uniforms( "mouse" ), Inputter.mouseModX, Inputter.mouseModY )
     GLUtil.exitOnGLError( )
   }
 
