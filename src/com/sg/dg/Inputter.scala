@@ -37,9 +37,14 @@ object Inputter {
     Mouse.setCursorPosition( DisplayUtil.halfWidth, DisplayUtil.halfHeight )
   }
 
-  var (mouseX, mouseY) = (0, 0)
+  private var (_mouseX, _mouseY) = (0, 0)
   var (mouseDX, mouseDY) = (0, 0)
   var (mouseModDX: Float, mouseModDY: Float) = (0f, 0f)
+
+  def mouseX = _mouseX
+  def mouseY = _mouseY
+  def mouseX_=( newX: Int ) = _mouseX = Math.clampI( newX, 0, DisplayUtil.width )
+  def mouseY_=( newY: Int ) = _mouseY = Math.clampI( newY, 0, DisplayUtil.width )
 
   def exitRequested: Boolean = keysDown( Keyboard.KEY_ESCAPE )
   def timeMs: Long = _timeMs

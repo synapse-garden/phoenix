@@ -11,7 +11,7 @@ class RGBColor( red: Float, green: Float, blue: Float )  {
   def g: Float = green
   def b: Float = blue
 
-  def clampRed: Float = Math.clamp( r )
-  def clampGreen: Float = Math.clamp( g )
-  def clampBlue: Float = Math.clamp( b )
+//  def clampRed: Float = Math.clamp( r )
+//  def clampGreen: Float = Math.clamp( g )
+//  def clampBlue: Float = Math.clamp( b )
 }

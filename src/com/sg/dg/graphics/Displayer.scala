@@ -26,11 +26,11 @@ object Displayer {
     Display update( )
   }
 
-  def enqueueIdToDraw(id: Int) {
+  def enqueueIdToDraw( id: Int ) {
     surfacesToDraw += id -> true
   }
 
-  def registerSurface(s: Surface) {
+  def registerSurface( s: Surface ) {
     surfaces += s.entityId -> s
   }
 

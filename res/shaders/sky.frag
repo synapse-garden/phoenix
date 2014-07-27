@@ -20,7 +20,7 @@ void main( void ) {
     atmo += sunPos.y*pow( 1.-position.y, 4.0 );
 	atmo *= 0.4 + sunPos.y;
 
-	float s = length( position*vec2( 1.777, 1.0 )-sunPos*vec2( 1.777, 1.0 ) );
+	float s = length( position*vec2( 1.777, 1.0 ) - sunPos*vec2( 1.777, 1.0 ) );
 	s = 1.0/s;
 	vec3 sun = vec3( s*1.0, s*0.8, s*0.5 );
 	atmo += atmo*sun*0.05;
