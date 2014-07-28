@@ -12,10 +12,9 @@ import com.sg.dg.Game
 import com.sg.dg.graphics.glbuffers.Buffers
 
 object InitUtil {
-  def init() {
+  def init( ) {
     DisplayUtil.setupDisplay( fullscreen = !Game.DEBUG )
     Inputter.init( )
-    Buffers.buildFsQuadVBO( )
     DisplayUtil.setupShaders( )
 
     setupGL( DisplayUtil.width, DisplayUtil.height )

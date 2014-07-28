@@ -8,8 +8,8 @@ import com.sg.dg.graphics.util.DisplayUtil
 import DisplayUtil._
 
 object DestroyUtil {
-  def destroy() {
-    destroyDisplay()
+  def destroy( ) {
+    destroyDisplay( )
     sys exit 0
   }
 }

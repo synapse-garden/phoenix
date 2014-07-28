@@ -42,7 +42,10 @@ object DisplayUtil {
       val contextAttributes = new ContextAttribs( 4, 4 )
         .withForwardCompatible( true )
         .withProfileCore( true )
-      val pixelFormat = new PixelFormat
+      val pixelFormat = new PixelFormat( )
+        .withDepthBits( 24 )
+        .withSamples( 4 )
+        .withSRGB( true )
 
       Display setTitle "LWJGL Test"
       Display setVSyncEnabled true
@@ -68,8 +71,8 @@ object DisplayUtil {
     }
   }
 
-  def destroyDisplay() {
-    Display destroy()
+  def destroyDisplay( ) {
+    Display destroy( )
   }
 }
 

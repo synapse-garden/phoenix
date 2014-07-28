@@ -46,8 +46,8 @@ object Inputter {
 
   def mouseX = _mouseX
   def mouseY = _mouseY
-  def mouseX_=( newX: Int ) = _mouseX = Math.clampI( newX, 0, DisplayUtil.width )
-  def mouseY_=( newY: Int ) = _mouseY = Math.clampI( newY, 0, DisplayUtil.width )
+  def mouseX_=( newX: Int ) = _mouseX = Math.clamp( newX, 0, DisplayUtil.width )
+  def mouseY_=( newY: Int ) = _mouseY = Math.clamp( newY, 0, DisplayUtil.width )
 
   def exitRequested: Boolean = keysDown( Keyboard.KEY_ESCAPE )
   def timeMs: Long = _timeMs

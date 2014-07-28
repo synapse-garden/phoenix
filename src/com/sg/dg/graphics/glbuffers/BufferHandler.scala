@@ -11,29 +11,31 @@ import org.lwjgl.BufferUtils
 object BufferHandler {
   private val stride = 0
   private val normalized = false
+  private var vaoIndexTracker = mutable.HashMap[Int, Int]( )
 
-  def initFsQuad( ): (Int, Int) = {
-    val vertices = Array[Float] (
-    // Left bottom triangle
-    -1f,  1f, 0f,
-    -1f, -1f, 0f,
-     1f, -1f, 0f,
-    // Right top triangle
-     1f, -1f, 0f,
-     1f,  1f, 0f,
-    -1f,  1f, 0f
-    )
+  def bufferVerts( vertices: Array[Float],
+                   vaoId: Int = -1,
+                   vaoIndex: Int = -1,
+                   vboId: Int = genVBO( ) ): ( Int, Int, Int ) = {
 
-    val fsQuadVAOId = genVAO( )
-    val fsQuadVBOId = genVBO( )
-    bindVAO( fsQuadVAOId )
-    bindVBO( fsQuadVBOId )
-    putVBOVertexData( vertices, Buffers.fsQuadVAOIndex )
+    var thisVaoId = vaoId
+    var thisVaoIndex = vaoIndex
+
+    if( vaoIndex == -1 ) {
+      thisVaoId = genVAO( )
+      thisVaoIndex = getNextVAOIndex( thisVaoId )
+    }
+
+    bindVAO( thisVaoId )
+    bindVBO( vboId )
+    putVBOVertexData( vertices, thisVaoIndex )
     unbindVBO( )
     unbindVAO( )
 
-    (fsQuadVAOId, fsQuadVBOId)
+    ( thisVaoId, thisVaoIndex, vboId )
   }
+
+  def getNextVAOIndex( vaoId: Int ): Int = vaoIndexTracker( vaoId )
 
   def putVBOVertexData( vertices: Array[Float], vaoIndex: Int ) {
     // Sending data to OpenGL requires the usage of (flipped) byte buffers
@@ -47,11 +49,11 @@ object BufferHandler {
     GL20.glVertexAttribPointer( vaoIndex, 3, GL11.GL_FLOAT, normalized, stride, 0 )
   }
 
-  def genVBO(): Int = {
+  def genVBO( ): Int = {
     GL15.glGenBuffers( )
   }
 
-  def bindVBO(id: Int) {
+  def bindVBO( id: Int ) {
     GL15.glBindBuffer( GL15.GL_ARRAY_BUFFER, id )
   }
 
@@ -59,8 +61,10 @@ object BufferHandler {
     bindVBO( 0 )
   }
 
-  def genVAO(): Int = {
-    GL30.glGenVertexArrays( )
+  def genVAO( ): Int = {
+    val newId = GL30.glGenVertexArrays( )
+    vaoIndexTracker( newId ) = 0
+    newId
   }
 
   def enableVAO( id: Int ) {
@@ -91,6 +95,12 @@ object BufferHandler {
   def deleteVAO( id: Int ) {
     GL30.glBindVertexArray( id )
     GL30.glDeleteVertexArrays( id )
+  }
+
+  def disposeBuffer( vboId: Int, vaoId: Int, vaoIndex: Int) {
+    disableVBOAt( vaoIndex )
+    deleteVBO( vboId )
+    deleteVAO( vaoId )
   }
 }
   /*
