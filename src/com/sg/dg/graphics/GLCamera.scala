@@ -15,6 +15,8 @@ object GLCamera {
    var yaw = 0.0f
    //the rotation around the X axis of the camera
    var pitch = 0.0f
+   //the rotation around the Z axis of the camera
+   var roll = 0.0f
 
    def setupCamera( x: Float, y: Float, z: Float ){
      cameraX = x

@@ -1,6 +1,7 @@
 package com.sg.dg.graphics.shaders
 
 import com.sg.dg.Inputter
+import com.sg.dg.graphics.GLCamera
 import com.sg.dg.graphics.util.{GLUtil, DisplayUtil}
 import org.joda.time
 
@@ -18,7 +19,9 @@ object Shaders {
   var uniforms = mutable.HashMap[String, Int](
     "time" -> 0,
     "mouse" -> 0,
-    "resolution" -> 0
+    "resolution" -> 0,
+    "cameraPos" -> 0,
+    "cameraRot" -> 0
   ).withDefaultValue( 0 )
 
   private val vertShaderSources = mutable.HashMap[String, String](
@@ -27,7 +30,8 @@ object Shaders {
 
   private val fragShaderSources = mutable.HashMap[String, String](
     "default" -> "res/shaders/screen.frag",
-    "sky" -> "res/shaders/sky.frag"
+    "sky" -> "res/shaders/sky.frag",
+    "look" -> "res/shaders/look.frag"
   ).withDefaultValue( "ABSENT" )
 
   var useShaders: Boolean = false
@@ -84,6 +88,8 @@ object Shaders {
     GL20.glUniform1f( uniforms( "time" ), Inputter.timeMs / 1000.0f )
     GL20.glUniform2i( uniforms( "resolution" ), DisplayUtil.width, DisplayUtil.height )
     GL20.glUniform2f( uniforms( "mouse" ), Inputter.mouseModX, Inputter.mouseModY )
+    GL20.glUniform3f( uniforms( "cameraPos" ), GLCamera.cameraX, GLCamera.cameraY, GLCamera.cameraZ )
+    GL20.glUniform3f( uniforms( "cameraRot" ), GLCamera.pitch, GLCamera.yaw, GLCamera.roll )
     GLUtil.exitOnGLError( )
   }
 
