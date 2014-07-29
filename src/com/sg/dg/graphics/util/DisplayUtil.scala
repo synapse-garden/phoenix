@@ -61,7 +61,7 @@ object DisplayUtil {
   }
 
   def setupShaders() {
-    Shaders.loadAndUseShaders( fShaderName = "sky" )
+    Shaders.loadAndUseShaders( fShaderName = "look" )
     if( Shaders.useShaders ) {
       Shaders.useProgram( )
       Shaders.setUniforms( )
