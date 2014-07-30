@@ -89,7 +89,7 @@ object Shaders {
     GL20.glUniform2i( uniforms( "resolution" ), DisplayUtil.width, DisplayUtil.height )
     GL20.glUniform2f( uniforms( "mouse" ), Inputter.mouseModX, Inputter.mouseModY )
     GL20.glUniform3f( uniforms( "cameraPos" ), GLCamera.cameraX, GLCamera.cameraY, GLCamera.cameraZ )
-    GL20.glUniform3f( uniforms( "cameraRot" ), GLCamera.pitch, GLCamera.yaw, GLCamera.roll )
+    GL20.glUniform3f( uniforms( "cameraRot" ), GLCamera.yaw, -1.0f*GLCamera.pitch, GLCamera.roll )
     GLUtil.exitOnGLError( )
   }
 
