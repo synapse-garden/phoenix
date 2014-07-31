@@ -55,15 +55,18 @@ object Math {
   def fastSin( a: Float ): Float = {
     val rad = modulo(a, TWO_PI ) //Gets radians between 0 and 2PI
     val smallRad = modulo(rad, HALF_PI )
-    var (modX,modY) = (1,1)
-    val perc = smallRad / HALF_PI
+    var neg = 1
+    var perc = smallRad / HALF_PI
 
     //modX -= ( ( rad >= HALF_PI ) || ( rad < HALF_PI*3 ) )&2
     //modY -= ( rad >= PI )&2
-    if( rad >= HALF_PI && rad < HALF_PI*3 ) modX = -1
-    if( rad >= PI ) modY = -1
+    if( rad >= HALF_PI && rad < HALF_PI*3 ) perc = 1 - perc
+    if( rad >= PI ) neg = -1
 
-    lerp( sinValues( math.floor( perc*6 ).toInt ), sinValues( math.ceil( perc*6f ).toInt ), math.ceil( perc*6f ).toFloat - perc*6f )
+    lerp( sinValues( math.floor( perc*6 ).toInt ),
+          sinValues(  math.ceil( perc*6 ).toInt ),
+          math.ceil( perc*6 ).toFloat - perc*6
+    )*neg
   }
 
   def fastCos( a: Float ): Float = {
