@@ -12,7 +12,11 @@ object Math {
   val HALF_PI = PI*0.5f
   val QUARTER_PI = PI*0.25f
 
-  val sinValues = List( 0.0f, 0.258819f, 0.5f, 0.707107f, 0.866025f, 0.965926f, 1.0f ) // Every 15 degrees or pi/12 radians
+  // Every 15 degrees or pi/12 radians
+  val sinValues = List( 0.0f, 0.258819f, 0.5f, 0.707107f, 0.866025f, 0.965926f,
+                        1.0f, 0.965926f, 0.866025f, 0.707107f, 0.5f, 0.258819f,
+                        -0.0f, -0.258819f, -0.5f, -0.707107f, -0.866025f, -0.965926f,
+                        -1.0f, -0.965926f, -0.866025f, -0.707107f, -0.5f, -0.258819f, 0f )
 
 /*
 <aloiscochard> ! def f[T](ord: scala.math.Ordering[T])(x: T): T = x
@@ -54,19 +58,12 @@ object Math {
 
   def fastSin( a: Float ): Float = {
     val rad = modulo(a, TWO_PI ) //Gets radians between 0 and 2PI
-    val smallRad = modulo(rad, HALF_PI )
-    var neg = 1
-    var perc = smallRad / HALF_PI
+    val perc = rad / TWO_PI
 
-    //modX -= ( ( rad >= HALF_PI ) || ( rad < HALF_PI*3 ) )&2
-    //modY -= ( rad >= PI )&2
-    if( rad >= HALF_PI && rad < HALF_PI*3 ) perc = 1 - perc
-    if( rad >= PI ) neg = -1
-
-    lerp( sinValues( math.floor( perc*6 ).toInt ),
-          sinValues(  math.ceil( perc*6 ).toInt ),
-          math.ceil( perc*6 ).toFloat - perc*6
-    )*neg
+    lerp( sinValues( math.floor( perc*24 ).toInt ),
+          sinValues(  math.ceil( perc*24 ).toInt ),
+          math.ceil( perc*24 ).toFloat - perc*24
+    )
   }
 
   def fastCos( a: Float ): Float = {

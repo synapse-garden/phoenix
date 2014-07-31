@@ -1,6 +1,8 @@
 package com.sg.dg
 
 import com.sg.dg.math.Math
+import org.joda.time
+import org.joda.time.DateTime
 
 /**
  * Created by bodie on 7/19/14.
@@ -39,19 +41,20 @@ object Test extends App {
     var i = 0
     var error = 0.0f
 
-    for( i <- 0 to 50 ){
-      error += Math.fastSin( (i/50f) ) - scala.math.sin( (i/50f) ).toFloat
+    for( i <- 0 to 500 ){
+      error += Math.fastSin( (i/500f) ) - scala.math.sin( (i/500f) ).toFloat
     }
 
-    error / 50f
+    error / 500f
   }
 
   def testFastSinC( ): (Float) = {
-    val timeA = System.nanoTime( )
-    val tempA = scala.math.sin( 0.423741f )
-    val timeB = System.nanoTime( )
-    val tempB = Math.fastSin( 0.423741f )
-    val timeC = System.nanoTime( )
+    var i = 0
+    val timeA = new DateTime().getMillis
+    val tempA = for (i <- 0 to 1000000 ) scala.math.sin( i*0.042375f )
+    val timeB = new DateTime().getMillis
+    val tempB = for (i <- 0 to 1000000 ) Math.fastSin( i*0.042375f )
+    val timeC = new DateTime().getMillis
 
     (timeB - timeA).toFloat / (timeC - timeB).toFloat
   }
