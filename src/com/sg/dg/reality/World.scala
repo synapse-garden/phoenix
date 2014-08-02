@@ -35,8 +35,8 @@ object World {
   }
 
   def update( ) {
-    for( id <- entitiesToUpdate.keys if entitiesToUpdate( id ) ) {
-      val e = entities( id )
+    for( id <- entitiesToUpdate.keys if entitiesToUpdate(id) ) {
+      val e = entities(id)
       e.update( )
       if( e.surface.toDraw && !Displayer.surfacesToDraw( id ) ) {
         Displayer.enqueueIdToDraw( e.surface.entityId )
@@ -46,5 +46,13 @@ object World {
 
   def setupWorld( ) {
 
+  }
+
+  def registerEntity( ent: Entity, id: Int ): Boolean = {
+    if ( !entities.contains( id ) ){
+      entities += id -> ent
+      true
+    }
+    else false
   }
 }

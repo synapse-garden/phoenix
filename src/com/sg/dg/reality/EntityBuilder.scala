@@ -1,5 +1,6 @@
 package com.sg.dg.reality
 
+import com.sg.dg.math.Vec4
 import com.sg.dg.reality.matter.SurfaceBuilder
 import com.sg.dg.reality.matter.Surface
 
