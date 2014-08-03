@@ -40,8 +40,8 @@ object World {
       val entity = entities( id )
       entity.update( )
       if( entity.drawable && entity.surface.toDraw ) {
+        Displayer.enqueueIdToDraw( entity.surface.entityId )
       }
-      Displayer.enqueueIdToDraw( entity.surface.entityId )
     }
   }
 
@@ -50,6 +50,7 @@ object World {
   }
 
   def setupEntities( ) {
+    /*
     val squaresRowId = EntityBuilder.getId( )
     val squaresRow = EntityBuilder.buildEntity( id = squaresRowId, pos = new Vector4f )
 
@@ -68,5 +69,6 @@ object World {
     }
     registerEntity( squaresRow, squaresRowId )
     addToUpdateList( squaresRowId )
+  */
   }
 }
