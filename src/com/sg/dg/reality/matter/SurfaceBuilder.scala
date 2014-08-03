@@ -1,9 +1,9 @@
 package com.sg.dg.reality.matter
 
-import com.sg.dg.math.Vec4
 import com.sg.dg.reality.EntityBuilder
 import com.sg.dg.graphics.Displayer
 import com.sg.dg.graphics.glbuffers.VertexBufferBuilder
+import org.lwjgl.util.vector.Vector4f
 
 /**
  * Created by bodie on 7/21/14.
@@ -31,7 +31,7 @@ object SurfaceBuilder {
     newSfc
   }
 
-  def newSquare( pId: Int, pos: Vec4 = new Vec4, dim: Float = 4.0f ): Surface = {
+  def newSquare( pId: Int, pos: Vector4f = new Vector4f, dim: Float = 4.0f ): Surface = {
     val offset = dim / 2f
     val newId = EntityBuilder.getId()
 

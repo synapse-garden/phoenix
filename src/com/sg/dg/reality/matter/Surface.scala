@@ -15,5 +15,5 @@ class Surface( val pId: Int,
   def parentId = pId
   def entityId = eId
   def toDraw = draw
-  def toDraw_=(b: Boolean) = draw = b
+  def toDraw_=( b: Boolean ) = draw = b
 }

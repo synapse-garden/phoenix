@@ -1,7 +1,8 @@
 package com.sg.dg.reality
 
-import com.sg.dg.math.Vec4
 import com.sg.dg.reality.matter.SurfaceBuilder
+import org.lwjgl.util.vector.Vector4f
+
 import com.sg.dg.reality.matter.Surface
 
 /**
@@ -11,15 +12,15 @@ object EntityBuilder {
   private var nextId: Int = 0
 
   def newFsQuad( id: Int = getId( ) ): Entity = {
-    buildEntityWithSurface( id, SurfaceBuilder.newSquare( pId = id ) )
+    buildEntityWithSurface( id = id, sfc = SurfaceBuilder.newSquare( pId = id, dim = 1f) )
   }
 
-  def buildEntity( id: Int = getId( ) ): Entity = {
-    buildEntityWithSurface( id, SurfaceBuilder.buildSurface( parentId = id ) )
+  def buildEntity( parentId: Int = -1, id: Int = getId( ), pos: Vector4f = new Vector4f): Entity = {
+    new Entity( parentId, id, pos )
   }
 
-  def buildEntityWithSurface( id: Int = getId( ), surface: Surface ): Entity = {
-    new Entity( id, surface )
+  def buildEntityWithSurface( parentId: Int = -1, id: Int = getId( ), pos: Vector4f = new Vector4f, sfc: Surface ): Entity = {
+    new Entity( parentId, id, pos, sfc, drawable = true)
   }
 
   def getId( ): Int = {
