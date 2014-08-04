@@ -6,6 +6,8 @@ package com.sg.dg.reality
 
 import scala.collection.mutable.HashMap
 import com.sg.dg.graphics.Displayer
+import org.lwjgl.util.vector.Vector4f
+import com.sg.dg.reality.matter.SurfaceBuilder
 
 object World {
   private val entities = HashMap[Int, Entity]( )
@@ -13,6 +15,7 @@ object World {
   private def addToUpdateList( entityId: Int ) {
     entitiesToUpdate += entityId -> true
   }
+
   private def registerEntity( ent: Entity, id: Int ): Boolean = {
     if( entities.contains( id ) ) false
     entities += id -> ent
@@ -57,7 +60,7 @@ object World {
     }
     registerEntity( squaresRow, squaresRowId )
     addToUpdateList( squaresRowId )
-  */
+    */
   }
 
   def update( ) {

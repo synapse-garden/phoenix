@@ -33,7 +33,7 @@ object SurfaceBuilder {
 
   def newSquare( pId: Int, pos: Vector4f = new Vector4f, dim: Float = 4.0f ): Surface = {
     val offset = dim / 2f
-    val newId = EntityBuilder.getId()
+    val newId = EntityBuilder.getId( )
 
     buildSurface(
       parentId = pId,
@@ -41,21 +41,13 @@ object SurfaceBuilder {
       materialId = -1,
       draw = true,
       vertices = Array[Float](
-         offset, 0f,  offset,
-        -offset, 0f,  offset,
-        -offset, 0f, -offset,
-        -offset, 0f, -offset,
-         offset, 0f, -offset,
-         offset, 0f,  offset
+        -offset,  offset, 0f,
+        -offset, -offset, 0f,
+         offset, -offset, 0f,
+         offset, -offset, 0f,
+         offset,  offset, 0f,
+        -offset,  offset, 0f
       )
     )
   }
 }
-//      // Left bottom triangle
-//      -1f,  1f, 0f,
-//      -1f, -1f, 0f,
-//      1f, -1f, 0f,
-//      // Right top triangle
-//      1f, -1f, 0f,
-//      1f,  1f, 0f,
-//      -1f,  1f, 0f

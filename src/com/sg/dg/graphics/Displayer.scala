@@ -12,9 +12,8 @@ import org.lwjgl.util.glu.GLU
  * Created by bodie on 7/24/14.
  */
 object Displayer {
-  val surfaces = mutable.HashMap[Int, Surface]( ).withDefaultValue(null)
-
-  var surfacesToDraw = mutable.HashMap[Int, Boolean]( ).withDefaultValue(false)
+  private var surfaces = mutable.HashMap[Int, Surface]( ).withDefaultValue(null)
+  private var surfacesToDraw = mutable.HashMap[Int, Boolean]( ).withDefaultValue(false)
 
   def draw( ) {
     GL11 glClear( GL11 GL_COLOR_BUFFER_BIT )

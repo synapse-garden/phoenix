@@ -12,7 +12,7 @@ object EntityBuilder {
   private var nextId: Int = 0
 
   def newFsQuad( id: Int = getId( ) ): Entity = {
-    buildEntityWithSurface( id = id, sfc = SurfaceBuilder.newSquare( pId = id, dim = 1f) )
+    buildEntityWithSurface( id = id, sfc = SurfaceBuilder.newSquare( pId = id, dim = 2f) )
   }
 
   def buildEntity( parentId: Int = -1, id: Int = getId( ), pos: Vector4f = new Vector4f): Entity = {
