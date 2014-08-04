@@ -38,6 +38,7 @@ object GLCamera {
   }
 
   def updateCamera( ){
+    _cameraRaw.clear( )
     _cameraMatrix.setIdentity( )
 
     yaw += Inputter.mouseModDX * 0.05f
@@ -48,5 +49,6 @@ object GLCamera {
 
     _cameraMatrix.invert( )
     _cameraMatrix.store( _cameraRaw )
+    _cameraRaw.flip( )
   }
 }

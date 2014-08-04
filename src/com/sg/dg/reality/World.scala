@@ -32,8 +32,8 @@ object World {
   }
 
   def init( ) {
-    setupWorld( )
-    // addFsQuad( )
+    //setupWorld( )
+    addFsQuad( )
   }
 
   def setupWorld( ) {
