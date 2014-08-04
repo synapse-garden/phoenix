@@ -21,7 +21,8 @@ object Shaders {
     "mouse" -> 0,
     "resolution" -> 0,
     "cameraPos" -> 0,
-    "cameraRot" -> 0
+    "cameraRot" -> 0,
+    "camera" -> 0
   ).withDefaultValue( 0 )
 
   private val vertShaderSources = mutable.HashMap[String, String](
@@ -90,6 +91,7 @@ object Shaders {
     GL20.glUniform2f( uniforms( "mouse" ), Inputter.mouseModX, Inputter.mouseModY )
     GL20.glUniform3f( uniforms( "cameraPos" ), GLCamera.cameraX, GLCamera.cameraY, GLCamera.cameraZ )
     GL20.glUniform3f( uniforms( "cameraRot" ), GLCamera.yaw, -1.0f*GLCamera.pitch, GLCamera.roll )
+    GL20.glUniformMatrix4( uniforms( "camera" ), false, GLCamera.cameraBuffer )
     GLUtil.exitOnGLError( )
   }
 

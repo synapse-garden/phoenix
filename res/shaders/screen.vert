@@ -1,6 +1,9 @@
-// varying vec4 vertColor;
+#version 440 core
+
+uniform mat4 camera;
+
+in vec4 Vertex;
 
 void main() {
-    gl_Position = gl_ModelViewProjectionMatrix*gl_Vertex;
-    // vertColor = vec4( gl_Position.x, gl_Position.y, gl_Position.z, gl_Position.w );
+    gl_Position = camera * vec4( Vertex, 1 );
 }
