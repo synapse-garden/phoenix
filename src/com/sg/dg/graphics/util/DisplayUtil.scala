@@ -45,7 +45,7 @@ object DisplayUtil {
       val pixelFormat = new PixelFormat( )
         .withDepthBits( 24 )
         .withSamples( 4 )
-        .withSRGB( true )
+        .withSRGB( false ) // true crashes if fullscreen on windows
 
       Display setTitle "LWJGL Test"
       Display setVSyncEnabled true
