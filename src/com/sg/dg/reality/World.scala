@@ -4,35 +4,70 @@
 
 package com.sg.dg.reality
 
-import scala.collection.mutable
+import scala.collection.mutable.HashMap
 import com.sg.dg.graphics.Displayer
+import org.lwjgl.util.vector.Vector4f
+import com.sg.dg.reality.matter.SurfaceBuilder
 
 object World {
-  val entities = mutable.HashMap[Int, Entity]().withDefaultValue( null )
-
-  var entitiesToUpdate = mutable.HashMap[Int, Boolean]().withDefaultValue(false)
-
-  def addToUpdateList( entityId: Int ) {
+  private val entities = HashMap[Int, Entity]( )
+  private var entitiesToUpdate = HashMap[Int, Boolean]( ).withDefaultValue( false )
+  private def addToUpdateList( entityId: Int ) {
     entitiesToUpdate += entityId -> true
   }
 
-  def init() {
+  private def registerEntity( ent: Entity, id: Int ): Boolean = {
+    if( entities.contains( id ) ) false
+    entities += id -> ent
+    true
+  }
+
+  private def addFsQuad( ) {
     val newId = EntityBuilder.getId( )
-    entities += ( newId -> EntityBuilder.newDefaultEntity( id = newId ) )
+    val fsq = EntityBuilder.newFsQuad( newId )
+    Displayer.registerSurface( fsq.surface )
+    Displayer.enqueueIdToDraw( fsq.surface.entityId )
+    registerEntity( fsq, newId )
     addToUpdateList( newId )
   }
 
-  def update() {
-    for( id <- entitiesToUpdate.keys if entitiesToUpdate(id) ) {
-      val e = entities(id)
-      e.update( )
-      if( e.surface.toDraw ) {
-      }
-        Displayer.enqueueIdToDraw(e.surface.entityId)
-    }
+  def init( ) {
+    setupWorld( )
+    // addFsQuad( )
   }
 
-  def setupWorld() {
+  def setupWorld( ) {
+    setupEntities
+  }
 
+  def setupEntities( ) {
+    val squaresRowId = EntityBuilder.getId( )
+    val squaresRow = EntityBuilder.buildEntity( id = squaresRowId, pos = new Vector4f )
+
+    for( i <- -1 to 1 ) {
+      val squareId = EntityBuilder.getId( )
+      val pos = new Vector4f( i * 0.5f, 0f, 0f, 0f )
+      val newSquare = EntityBuilder.buildEntityWithSurface(
+        parentId = squaresRowId,
+        id = squareId,
+        pos = pos,
+        sfc = SurfaceBuilder.newSquare( pId = squareId, pos = pos, dim = 0.3f )
+      )
+      registerEntity( newSquare, squareId )
+      squaresRow.attachChild( squareId )
+      addToUpdateList( squareId )
+    }
+    registerEntity( squaresRow, squaresRowId )
+    addToUpdateList( squaresRowId )
+  }
+
+  def update( ) {
+    for( id <- entitiesToUpdate.keys if entitiesToUpdate( id ) ) {
+      val entity = entities( id )
+      entity.update( )
+      if( entity.drawable && entity.surface.toDraw ) {
+        Displayer.enqueueIdToDraw( entity.surface.entityId )
+      }
+    }
   }
 }

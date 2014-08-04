@@ -13,11 +13,11 @@ object DisplayUtil {
   private var (w, h) = (0, 0)
   private var (wDiv2, hDiv2) = (0, 0)
 
-  private def setDim(newW: Int, newH: Int) {
+  private def setDim( newW: Int, newH: Int ) {
     w = newW
     h = newH
-    wDiv2 = (newW / 2f).toInt
-    hDiv2 = (newH / 2f).toInt
+    wDiv2 = ( newW / 2f ).toInt
+    hDiv2 = ( newH / 2f ).toInt
   }
 
   def isCreated = _isCreated
@@ -31,7 +31,7 @@ object DisplayUtil {
 
   def setupDisplay(fullscreen: Boolean = true) {
     try {
-      val dm: DisplayMode = Display.getAvailableDisplayModes.foldLeft(new DisplayMode(1280, 800))(
+      val dm: DisplayMode = Display.getAvailableDisplayModes.foldLeft( new DisplayMode(1280, 800) )(
         (m1, m2) =>
           if( m2.isFullscreenCapable == fullscreen &&
               m2.getHeight >= m1.getHeight &&
@@ -42,12 +42,15 @@ object DisplayUtil {
       val contextAttributes = new ContextAttribs( 4, 4 )
         .withForwardCompatible( true )
         .withProfileCore( true )
-      val pixelFormat = new PixelFormat
+      val pixelFormat = new PixelFormat( )
+        .withDepthBits( 24 )
+        .withSamples( 4 )
+        .withSRGB( false ) // true crashes if fullscreen on windows
 
       Display setTitle "LWJGL Test"
       Display setVSyncEnabled true
       Display setDisplayModeAndFullscreen dm
-      Display.create(pixelFormat, contextAttributes)
+      Display.create( pixelFormat, contextAttributes )
 
       setDim( dm.getWidth, dm.getHeight )
 
@@ -60,7 +63,7 @@ object DisplayUtil {
     GLUtil.exitOnGLError( )
   }
 
-  def setupShaders() {
+  def setupShaders( ) {
     Shaders.loadAndUseShaders( fShaderName = "look" )
     if( Shaders.useShaders ) {
       Shaders.useProgram( )
@@ -68,8 +71,8 @@ object DisplayUtil {
     }
   }
 
-  def destroyDisplay() {
-    Display destroy()
+  def destroyDisplay( ) {
+    Display destroy( )
   }
 }
 
