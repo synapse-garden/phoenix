@@ -33,7 +33,7 @@ object World {
 
   def init( ) {
     setupWorld( )
-    addFsQuad( )
+    // addFsQuad( )
   }
 
   def setupWorld( ) {
@@ -41,26 +41,24 @@ object World {
   }
 
   def setupEntities( ) {
-    /*
     val squaresRowId = EntityBuilder.getId( )
     val squaresRow = EntityBuilder.buildEntity( id = squaresRowId, pos = new Vector4f )
 
     for( i <- -1 to 1 ) {
       val squareId = EntityBuilder.getId( )
-      val pos = new Vector4f( i * 1f, 0f, 0f, 0f )
+      val pos = new Vector4f( i * 0.5f, 0f, 0f, 0f )
       val newSquare = EntityBuilder.buildEntityWithSurface(
         parentId = squaresRowId,
         id = squareId,
         pos = pos,
         sfc = SurfaceBuilder.newSquare( pId = squareId, pos = pos, dim = 0.3f )
       )
-      registerEntity( squaresRow, squaresRowId )
+      registerEntity( newSquare, squareId )
       squaresRow.attachChild( squareId )
-      addToUpdateList( squaresRowId )
+      addToUpdateList( squareId )
     }
     registerEntity( squaresRow, squaresRowId )
     addToUpdateList( squaresRowId )
-    */
   }
 
   def update( ) {

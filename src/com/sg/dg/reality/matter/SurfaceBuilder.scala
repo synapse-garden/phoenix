@@ -34,6 +34,7 @@ object SurfaceBuilder {
   def newSquare( pId: Int, pos: Vector4f = new Vector4f, dim: Float = 4.0f ): Surface = {
     val offset = dim / 2f
     val newId = EntityBuilder.getId( )
+    val (x, y, z) = (pos.x, pos.y, pos.z)
 
     buildSurface(
       parentId = pId,
@@ -41,12 +42,12 @@ object SurfaceBuilder {
       materialId = -1,
       draw = true,
       vertices = Array[Float](
-        -offset,  offset, 0f,
-        -offset, -offset, 0f,
-         offset, -offset, 0f,
-         offset, -offset, 0f,
-         offset,  offset, 0f,
-        -offset,  offset, 0f
+        -offset + x,  offset + y, z,
+        -offset + x, -offset + y, z,
+         offset + x, -offset + y, z,
+         offset + x, -offset + y, z,
+         offset + x,  offset + y, z,
+        -offset + x,  offset + y, z
       )
     )
   }
