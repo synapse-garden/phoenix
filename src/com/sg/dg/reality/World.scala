@@ -32,7 +32,7 @@ object World {
   }
 
   def init( ) {
-    //setupWorld( )
+    setupWorld( )
     addFsQuad( )
   }
 

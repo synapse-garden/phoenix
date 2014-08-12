@@ -14,7 +14,7 @@ out vec4 outColor;
 void main( void ) {
 
 	vec2 position = ( gl_FragCoord.xy / resolution.xy - 0.5);
-	vec2 look = vec2( cameraRot.x/180.0*PI, cameraRot.y/180.0*PI );
+	vec2 look = vec2( cameraRot.x, cameraRot.y );
 	vec3 color = vec3(0.0);
 
 	color.x = sin( (position.x-0.5)*RATIO + look.x)*0.5 + 0.5;
