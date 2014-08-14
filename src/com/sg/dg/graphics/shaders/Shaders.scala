@@ -25,6 +25,10 @@ object Shaders {
     "camera" -> 0
   ).withDefaultValue( 0 )
 
+  var vertexAttribs = mutable.HashMap[String, Int](
+    "inPosition" -> 0
+  )
+
   private val vertShaderSources = mutable.HashMap[String, String](
     "default" -> "res/shaders/screen.vert"
   ).withDefaultValue( "ABSENT" )
@@ -82,6 +86,12 @@ object Shaders {
   def setUniforms( ) {
     for( uniformName <- uniforms.keys ) {
       uniforms( uniformName ) = GL20.glGetUniformLocation( shaderProgramId, uniformName )
+    }
+  }
+
+  def setAttribs( ) {
+    for( attrName <- vertexAttribs.keys ) {
+      vertexAttribs( attrName ) = GL20.glGetAttribLocation( shaderProgramId, attrName )
     }
   }
 

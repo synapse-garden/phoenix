@@ -68,6 +68,7 @@ object DisplayUtil {
     if( Shaders.useShaders ) {
       Shaders.useProgram( )
       Shaders.setUniforms( )
+      Shaders.setAttribs( )
     }
   }
 

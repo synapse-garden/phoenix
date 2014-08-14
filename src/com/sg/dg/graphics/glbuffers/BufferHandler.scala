@@ -4,6 +4,7 @@ import org.lwjgl.opengl._
 import scala.collection.mutable
 import java.nio.FloatBuffer
 import org.lwjgl.BufferUtils
+import com.sg.dg.graphics.shaders.Shaders
 
 /**
  * Created by bodie on 7/24/14.
@@ -15,29 +16,26 @@ object BufferHandler {
 
   def bufferVerts( vertices: Array[Float],
                    vaoId: Int = -1,
-                   vaoIndex: Int = -1,
+                   attrIndex: Int = Shaders.vertexAttribs( "inPosition" ),
                    vboId: Int = genVBO( ) ): ( Int, Int, Int ) = {
 
     var thisVaoId = vaoId
-    var thisVaoIndex = vaoIndex
+    var thisAttrIndex = attrIndex
 
-    if( vaoIndex == -1 ) {
+    if( attrIndex == -1 ) {
       thisVaoId = genVAO( )
-      thisVaoIndex = getNextVAOIndex( thisVaoId )
     }
 
     bindVAO( thisVaoId )
     bindVBO( vboId )
-    putVBOVertexData( vertices, thisVaoIndex )
+    putVBOVertexData( vertices, thisAttrIndex )
     unbindVBO( )
     unbindVAO( )
 
-    ( thisVaoId, thisVaoIndex, vboId )
+    ( thisVaoId, thisAttrIndex, vboId )
   }
 
-  def getNextVAOIndex( vaoId: Int ): Int = vaoIndexTracker( vaoId )
-
-  def putVBOVertexData( vertices: Array[Float], vaoIndex: Int ) {
+  def putVBOVertexData( vertices: Array[Float], attrIndex: Int ) {
     // Sending data to OpenGL requires the usage of (flipped) byte buffers
     val verticesBuffer = BufferUtils.createFloatBuffer( vertices.length )
     verticesBuffer.put( vertices )
@@ -46,7 +44,7 @@ object BufferHandler {
     // Use the buffer data
     GL15.glBufferData( GL15.GL_ARRAY_BUFFER, verticesBuffer, GL15.GL_STATIC_DRAW )
     // Bind to the point in the currently selected VAO
-    GL20.glVertexAttribPointer( vaoIndex, 3, GL11.GL_FLOAT, normalized, stride, 0 )
+    GL20.glVertexAttribPointer( attrIndex, 3, GL11.GL_FLOAT, normalized, stride, 0 )
   }
 
   def genVBO( ): Int = {
@@ -103,7 +101,7 @@ object BufferHandler {
     deleteVAO( vaoId )
   }
 }
-  /*
+/*
 
 Request a memory location (returns integer number, the ID, of the object)
 Bind the object using the ID
