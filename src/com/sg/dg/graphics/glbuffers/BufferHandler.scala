@@ -2,9 +2,9 @@ package com.sg.dg.graphics.glbuffers
 
 import org.lwjgl.opengl._
 import scala.collection.mutable
-import java.nio.FloatBuffer
 import org.lwjgl.BufferUtils
 import com.sg.dg.graphics.shaders.Shaders
+import com.sg.dg.graphics.util.GLUtil
 
 /**
  * Created by bodie on 7/24/14.
@@ -43,6 +43,7 @@ object BufferHandler {
 
     // Use the buffer data
     GL15.glBufferData( GL15.GL_ARRAY_BUFFER, verticesBuffer, GL15.GL_STATIC_DRAW )
+    GLUtil.exitOnGLError( )
     // Bind to the point in the currently selected VAO
     GL20.glVertexAttribPointer( attrIndex, 3, GL11.GL_FLOAT, normalized, stride, 0 )
   }

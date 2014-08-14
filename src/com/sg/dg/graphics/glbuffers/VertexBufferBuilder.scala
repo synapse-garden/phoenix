@@ -1,6 +1,7 @@
 package com.sg.dg.graphics.glbuffers
 
 import com.sg.dg.reality.EntityBuilder
+import com.sg.dg.graphics.util.GLUtil
 
 /**
  * Created by bodie on 7/28/14.

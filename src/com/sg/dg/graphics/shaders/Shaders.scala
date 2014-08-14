@@ -86,12 +86,14 @@ object Shaders {
   def setUniforms( ) {
     for( uniformName <- uniforms.keys ) {
       uniforms( uniformName ) = GL20.glGetUniformLocation( shaderProgramId, uniformName )
+      GLUtil.exitOnGLError( "error in setUniforms: " + uniformName + ": id = " + uniforms( uniformName ) )
     }
   }
 
   def setAttribs( ) {
     for( attrName <- vertexAttribs.keys ) {
       vertexAttribs( attrName ) = GL20.glGetAttribLocation( shaderProgramId, attrName )
+      GLUtil.exitOnGLError( "error in setAttribs: " + attrName + ": id = " + vertexAttribs( attrName ) )
     }
   }
 

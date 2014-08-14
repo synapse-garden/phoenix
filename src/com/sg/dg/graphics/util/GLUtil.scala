@@ -19,7 +19,7 @@ object GLUtil {
     if( errorValue != GL11.GL_NO_ERROR ) {
       val caller = java.lang.Thread.currentThread.getStackTrace()(2).getMethodName
       val errorString = GLU.gluErrorString( errorValue )
-      System.err.println( "ERROR - " + (() => if( errorMessage == "" ) caller else errorMessage)() + ": " + errorString )
+      System.err.println( "GL ERROR " + errorValue + ": " + (() => if( errorMessage == "" ) caller else errorMessage)() + ": " + errorString )
 
       if( DisplayUtil.isCreated ) DisplayUtil.destroyDisplay( )
       System.exit(-1)

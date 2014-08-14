@@ -8,6 +8,7 @@ import scala.collection.mutable.HashMap
 import com.sg.dg.graphics.Displayer
 import org.lwjgl.util.vector.Vector4f
 import com.sg.dg.reality.matter.SurfaceBuilder
+import com.sg.dg.graphics.util.GLUtil
 
 object World {
   private val entities = HashMap[Int, Entity]( )

@@ -4,6 +4,7 @@ import com.sg.dg.reality.EntityBuilder
 import com.sg.dg.graphics.Displayer
 import com.sg.dg.graphics.glbuffers.VertexBufferBuilder
 import org.lwjgl.util.vector.Vector4f
+import com.sg.dg.graphics.util.GLUtil
 
 /**
  * Created by bodie on 7/21/14.
