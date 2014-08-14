@@ -11,7 +11,7 @@ object Buffers {
   private var vertexBuffers = mutable.HashMap[Int, VertexBuffer]( )
 
   def addVerts( vertices: Array[Float] ): ( Int, Int, Int ) = {
-    BufferHandler.bufferVerts( vertices )
+    BufferHandler.bufferVerts( vertices = vertices )
   }
 
   def registerVertexBuffer( eId: Int, vb: VertexBuffer ): VertexBuffer = {

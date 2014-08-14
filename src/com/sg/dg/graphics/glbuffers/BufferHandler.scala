@@ -14,25 +14,20 @@ object BufferHandler {
   private val normalized = false
   private var vaoIndexTracker = mutable.HashMap[Int, Int]( )
 
-  def bufferVerts( vertices: Array[Float],
-                   vaoId: Int = -1,
-                   attrIndex: Int = Shaders.vertexAttribs( "inPosition" ),
+  def bufferVerts( attrIndex: Int = Shaders.vertexAttribs( "inPosition" ),
+                   vertices: Array[Float],
+                   vaoId: Int = genVAO( ),
                    vboId: Int = genVBO( ) ): ( Int, Int, Int ) = {
 
-    var thisVaoId = vaoId
     var thisAttrIndex = attrIndex
 
-    if( attrIndex == -1 ) {
-      thisVaoId = genVAO( )
-    }
-
-    bindVAO( thisVaoId )
+    bindVAO( vaoId )
     bindVBO( vboId )
     putVBOVertexData( vertices, thisAttrIndex )
     unbindVBO( )
     unbindVAO( )
 
-    ( thisVaoId, thisAttrIndex, vboId )
+    ( vaoId, thisAttrIndex, vboId )
   }
 
   def putVBOVertexData( vertices: Array[Float], attrIndex: Int ) {
@@ -61,9 +56,7 @@ object BufferHandler {
   }
 
   def genVAO( ): Int = {
-    val newId = GL30.glGenVertexArrays( )
-    vaoIndexTracker( newId ) = 0
-    newId
+    GL30.glGenVertexArrays( )
   }
 
   def enableVAO( id: Int ) {
