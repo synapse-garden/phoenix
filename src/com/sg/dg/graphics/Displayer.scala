@@ -23,7 +23,10 @@ object Displayer {
   }
 
   private def drawFsq( ) {
+    Shaders.setVertexSubroutine( "vertexCamera", "fsQuad" )
     drawSurface( fsq.surface.vertexBuffer )
+    Shaders.setVertexSubroutine( "vertexCamera", "world" )
+    GLUtil.exitOnGLError( )
   }
 
   def draw( ) {

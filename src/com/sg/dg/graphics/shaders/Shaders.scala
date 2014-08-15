@@ -6,7 +6,8 @@ import com.sg.dg.graphics.util.{GLUtil, DisplayUtil}
 import org.joda.time
 
 import scala.collection.mutable
-import org.lwjgl.opengl.GL20
+import org.lwjgl.opengl.{GL40, GL20}
+import org.lwjgl.BufferUtils
 
 /**
  * Created by bodie on 7/21/14.
@@ -16,7 +17,7 @@ object Shaders {
   private var fShaderId: Int = 0
   private var shaderProgramId: Int = 0
 
-  var uniforms = mutable.HashMap[String, Int](
+  private var uniforms = mutable.HashMap[String, Int](
     "time" -> 0,
     "mouse" -> 0,
     "resolution" -> 0,
@@ -25,8 +26,16 @@ object Shaders {
     "camera" -> 0
   ).withDefaultValue( 0 )
 
-  var vertexAttribs = mutable.HashMap[String, Int](
+  private var _vertexAttribs = mutable.HashMap[String, Int](
     "inPosition" -> 0
+  )
+
+  private var vertexSubroutines = mutable.HashMap[String, mutable.HashMap[String, Int]](
+    "vertexCamera" -> mutable.HashMap[String, Int] (
+      "self" -> 0,
+      "fsQuad" -> 0,
+      "world" -> 0
+    )
   )
 
   private val vertShaderSources = mutable.HashMap[String, String](
@@ -46,6 +55,7 @@ object Shaders {
 
   def vertexShaderNames: List[String] = vertShaderSources.keys.toList
   def fragmentShaderNames: List[String] = fragShaderSources.keys.toList
+  def vertexAttribs = _vertexAttribs
 
   def loadAndUseShaders( vShaderName: String = "default", fShaderName: String = "default" ) {
     try {
@@ -83,17 +93,14 @@ object Shaders {
     ShaderHandler.useProgram( shaderProgramId )
   }
 
-  def setUniforms( ) {
-    for( uniformName <- uniforms.keys ) {
-      uniforms( uniformName ) = GL20.glGetUniformLocation( shaderProgramId, uniformName )
-      GLUtil.exitOnGLError( "error in setUniforms: " + uniformName + ": id = " + uniforms( uniformName ) )
-    }
+  def endProgram( ) {
+    ShaderHandler.endProgram( )
   }
 
-  def setAttribs( ) {
-    for( attrName <- vertexAttribs.keys ) {
-      vertexAttribs( attrName ) = GL20.glGetAttribLocation( shaderProgramId, attrName )
-      GLUtil.exitOnGLError( "error in setAttribs: " + attrName + ": id = " + vertexAttribs( attrName ) )
+  def getUniforms( ) {
+    for( uniformName <- uniforms.keys ) {
+      uniforms( uniformName ) = GL20.glGetUniformLocation( shaderProgramId, uniformName )
+      GLUtil.exitOnGLError( "error in getUniforms: " + uniformName + ": id = " + uniforms( uniformName ) )
     }
   }
 
@@ -107,8 +114,36 @@ object Shaders {
     GLUtil.exitOnGLError( )
   }
 
-  def endProgram( ) {
-    ShaderHandler.endProgram( )
+  def getAttribs( ) {
+    for( attrName <- vertexAttribs.keys ) {
+      vertexAttribs( attrName ) = GL20.glGetAttribLocation( shaderProgramId, attrName )
+      GLUtil.exitOnGLError( "error in getAttribs: " + attrName + ": id = " + vertexAttribs( attrName ) )
+    }
+  }
+
+  def getVertexSubroutines( ) {
+    // Go through the list of subroutine uniforms.
+    for( subUniformName <- vertexSubroutines.keys ) {
+      // First, get the ID of the uniform name itself, as "self".
+      vertexSubroutines( subUniformName )( "self" ) = GL40.glGetSubroutineUniformLocation( shaderProgramId, GL20.GL_VERTEX_SHADER, subUniformName )
+      // Then, for each subroutine for the uniform,
+      for( subName <- vertexSubroutines( subUniformName ).keys if subName != "self" ) {
+        // Get the ID for that subroutine and attach it to the named key in the map.
+        vertexSubroutines( subUniformName )( subName ) = GL40.glGetSubroutineIndex( shaderProgramId, GL20.GL_VERTEX_SHADER, subName )
+        GLUtil.exitOnGLError( "error in getVertexSubroutines: " + subName + ": id = " + vertexSubroutines( subUniformName )( subName ) )
+      }
+    }
+  }
+
+  def setVertexSubroutine( sub: String, selection: String ) {
+    val buf = BufferUtils.createIntBuffer( vertexSubroutines.keys.size )
+    buf.put(vertexSubroutines( sub )( "self" ), vertexSubroutines( sub )( selection ))
+    GL40.glUniformSubroutinesu( GL20.GL_VERTEX_SHADER, buf )
+    GLUtil.exitOnGLError(
+      "buf = [" + buf.get(0) + "]" +
+      "\n  str = " + buf.toString( ) +
+      "\n  GL_ACTIVE_SUBROUTINE_UNIFORM_LOCATIONS = " + GL40.glGetProgramStagei(shaderProgramId, GL20.GL_VERTEX_SHADER, GL40.GL_ACTIVE_SUBROUTINE_UNIFORM_LOCATIONS) +
+      "\n  GL_ACTIVE_SUBROUTINES = " + GL40.glGetProgramStagei(shaderProgramId, GL20.GL_VERTEX_SHADER, GL40.GL_ACTIVE_SUBROUTINES))
   }
 }
 

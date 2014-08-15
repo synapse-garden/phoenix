@@ -3,11 +3,18 @@
 uniform mat4 camera;
 in vec3 inPosition;
 
-// subroutine FuncReturnType WorldPart(Type0 param0, Type1 param1, ...);
+subroutine vec4 cameraTransform( mat4 camera, vec4 vertex );
+subroutine uniform cameraTransform vertexCamera;
 
-// subroutine(SubroutineTypeName) FuncReturnType FunctionName(Type0 param0, Type1 param1, ...);
+subroutine( cameraTransform ) vec4 fsQuad( mat4 camera, vec4 vertex ) {
+    return vertex;
+}
+
+subroutine( cameraTransform ) vec4 world( mat4 camera, vec4 vertex ) {
+    return camera * vertex;
+}
 
 void main() {
-    gl_Position = camera * vec4(inPosition, 1.0);
+    gl_Position = vertexCamera( camera, vec4( inPosition, 1.0 ) );
 }
 

@@ -67,8 +67,9 @@ object DisplayUtil {
     Shaders.loadAndUseShaders( fShaderName = "look" )
     if( Shaders.useShaders ) {
       Shaders.useProgram( )
-      Shaders.setUniforms( )
-      Shaders.setAttribs( )
+      Shaders.getUniforms( )
+      Shaders.getAttribs( )
+      Shaders.getVertexSubroutines( )
     }
   }
 
