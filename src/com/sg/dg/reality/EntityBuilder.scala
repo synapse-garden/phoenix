@@ -11,10 +11,6 @@ import com.sg.dg.reality.matter.Surface
 object EntityBuilder {
   private var nextId: Int = 0
 
-  def newFsQuad( id: Int = getId( ) ): Entity = {
-    buildEntityWithSurface( id = id, sfc = SurfaceBuilder.newSquare( pId = id, dim = 2f, pos = new Vector4f(0f, 0f, 1f, 1f) ) )
-  }
-
   def buildEntity( parentId: Int = -1, id: Int = getId( ), pos: Vector4f = new Vector4f ): Entity = {
     new Entity( parentId, id, pos )
   }

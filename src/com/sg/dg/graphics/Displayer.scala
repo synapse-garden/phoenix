@@ -1,12 +1,13 @@
 package com.sg.dg.graphics
 
 import scala.collection.mutable
-import com.sg.dg.reality.matter.Surface
+import com.sg.dg.reality.matter.{SurfaceBuilder, Surface}
 import org.lwjgl.opengl._
 import com.sg.dg.graphics.shaders.Shaders
-import com.sg.dg.graphics.util.{DisplayUtil, GLUtil}
-import com.sg.dg.graphics.glbuffers.{BufferHandler, Buffers}
-import org.lwjgl.util.glu.GLU
+import com.sg.dg.graphics.util.GLUtil
+import com.sg.dg.graphics.glbuffers.{VertexBuffer, BufferHandler, Buffers}
+import com.sg.dg.reality.{Entity, EntityBuilder}
+import org.lwjgl.util.vector.Vector4f
 
 /**
  * Created by bodie on 7/24/14.
@@ -14,10 +15,21 @@ import org.lwjgl.util.glu.GLU
 object Displayer {
   private var surfaces = mutable.HashMap[Int, Surface]( ).withDefaultValue(null)
   private var surfacesToDraw = mutable.HashMap[Int, Boolean]( ).withDefaultValue(false)
+  private var fsq: Entity = getFsQuad( )
+
+  private def getFsQuad( ): Entity = {
+    val newId = EntityBuilder.getId( )
+    EntityBuilder.buildEntityWithSurface( id = newId, sfc = SurfaceBuilder.newSquare( pId = newId, dim = 2f, pos = new Vector4f(0f, 0f, 1f, 1f) ) )
+  }
+
+  private def drawFsq( ) {
+    drawSurface( fsq.surface.vertexBuffer )
+  }
 
   def draw( ) {
     GL11 glClear( GL11 GL_COLOR_BUFFER_BIT )
 
+    drawFsq
     drawSurfaces
 
     Display update( )
@@ -27,6 +39,7 @@ object Displayer {
     surfacesToDraw += surfaceId -> true
   }
 
+  // Registers the Surface's existence; enqueueIdToDraw needs the surface to be registered.
   def registerSurface( s: Surface ) = {
     surfaces += s.entityId -> s
   }
@@ -42,15 +55,16 @@ object Displayer {
 
   def drawSurfaces( ) {
     for( id <- surfacesToDraw.keys if surfacesToDraw( id ) ) {
-      val vb = surfaces( id ).vertexBuffer
-      val ( vaoId, vaoIndex, vertexCount ) = ( vb.vaoId, vb.vaoIndex, vb.vertexCount )
-
-      BufferHandler.bindVAO( vaoId )
-      BufferHandler.enableVAO( vaoIndex )
-      GL11.glDrawArrays( GL11.GL_TRIANGLES, vaoIndex, vertexCount )
-      BufferHandler.disableVAO( vaoIndex )
-      BufferHandler.unbindVAO( )
+      drawSurface( surfaces( id ).vertexBuffer )
     }
+  }
+
+  private def drawSurface( vb: VertexBuffer ) {
+    val ( vaoId, vaoIndex, vertexCount ) = ( vb.vaoId, vb.vaoIndex, vb.vertexCount )
+    BufferHandler.bindVAO( vaoId )
+    BufferHandler.enableVAO( vaoIndex )
+    GL11.glDrawArrays( GL11.GL_TRIANGLES, vaoIndex, vertexCount )
+    BufferHandler.disableVAO( vaoIndex )
     GLUtil.exitOnGLError( )
   }
 

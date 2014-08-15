@@ -1,10 +1,11 @@
 package com.sg.dg.graphics
 
 import com.sg.dg.Inputter
-import org.lwjgl.opengl.GL11
+import com.sg.dg.math.Math
+
 import org.lwjgl.util.vector.{Vector3f, Matrix4f}
-import java.nio.ByteBuffer
 import org.lwjgl.BufferUtils
+import org.lwjgl.input.Keyboard
 
 /**
   * Created by kevin on 7/21/14.

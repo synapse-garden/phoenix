@@ -25,14 +25,8 @@ object Math {
 <multibot_>  g: [T](ord: scala.math.Ordering[T])(f0: T => T)Int
 */
 
-  def clampI( v: Int, lower: Int, upper: Int, f: (Int, Int, Int) => Int = defaultClampI ): Int = {
-    f( v, lower, upper )
-  }
-
-  def defaultClampI( v: Int, lower: Int, upper: Int ): Int = {
-    if( v > upper ) upper
-    else if( v < lower ) lower
-    else v
+  def clamp[T : Ordering]( v: T, lower: T, upper: T ): T = {
+    clampWith(v, lower, upper)( defaultClamp )
   }
 
   def clampWith[T]( v: T, lower: T, upper: T )( f0: (T, T, T) => T ): T = {
@@ -75,5 +69,13 @@ object Math {
     while( c > b ) c -= b
     while( c < 0f ) c += b
     c
+  }
+
+  def toRad( degrees: Float ): Float = {
+    degrees*0.01745329251994329576923690768489f
+  }
+
+  def toDeg( rads: Float ): Float = {
+    rads*57.295779513082320876798154814105f
   }
 }

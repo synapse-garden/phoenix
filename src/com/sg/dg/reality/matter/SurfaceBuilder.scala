@@ -28,6 +28,7 @@ object SurfaceBuilder {
       draw = true,
       vertices = vertices
     )
+    // Register the surface's existence in Displayer; enqueueIdToDraw later.
     Displayer.registerSurface( newSfc )
     newSfc
   }
