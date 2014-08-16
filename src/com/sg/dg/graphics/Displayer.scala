@@ -23,9 +23,11 @@ object Displayer {
   }
 
   private def drawFsq( ) {
-    Shaders.setVertexSubroutine( ("vertexCamera", "fsQuad") )
+    Shaders.setVertexSubroutines( ("vertexCamera", "fsQuad") )
+    Shaders.setFragmentSubroutines( ("fragmentProcess", "fsQuad") )
     drawSurface( fsq.surface.vertexBuffer )
-    Shaders.setVertexSubroutine( ("vertexCamera", "world") )
+    Shaders.setVertexSubroutines( ("vertexCamera", "world") )
+    Shaders.setFragmentSubroutines( ("fragmentProcess", "world") )
     GLUtil.exitOnGLError( )
   }
 

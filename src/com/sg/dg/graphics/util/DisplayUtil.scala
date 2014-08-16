@@ -63,7 +63,7 @@ object DisplayUtil {
   }
 
   def setupShaders( ) {
-    Shaders.loadAndUseShaders( fShaderName = "look" )
+    Shaders.loadAndUseShaders( )
     if( Shaders.useShaders ) {
       Shaders.useProgram( )
       Shaders.getUniforms( )
@@ -76,4 +76,3 @@ object DisplayUtil {
     Display destroy( )
   }
 }
-

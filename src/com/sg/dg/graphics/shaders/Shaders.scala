@@ -44,11 +44,16 @@ object Shaders {
   )
 
   private var fragmentSubroutines = mutable.HashMap[String, mutable.HashMap[String, Int]](
+    "fragmentProcess" -> mutable.HashMap[String, Int] (
+      "self" -> 0,
+      "fsQuad" -> 0,
+      "world" -> 0
+    )
     // subroutines for frag shader go here
   )
 
   private val defaultFragmentSubroutines = immutable.HashMap[String, String](
-    // default subroutines go here
+    "fragmentProcess" -> "fsQuad"
   )
 
   private var vertexSubroutineBuffer = BufferUtils.createIntBuffer( vertexSubroutines.keys.size )
@@ -164,11 +169,11 @@ object Shaders {
     }
   }
 
-  def setVertexSubroutine( subs: (String, String)* ) {
+  def setVertexSubroutines( subs: (String, String)* ) {
     setSubroutine( GL20.GL_VERTEX_SHADER, subs )
   }
 
-  def setFragmentSubroutine( subs: (String, String)* ) {
+  def setFragmentSubroutines( subs: (String, String)* ) {
     setSubroutine( GL20.GL_FRAGMENT_SHADER, subs )
   }
 
