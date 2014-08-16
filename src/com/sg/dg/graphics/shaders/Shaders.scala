@@ -3,11 +3,12 @@ package com.sg.dg.graphics.shaders
 import com.sg.dg.Inputter
 import com.sg.dg.graphics.GLCamera
 import com.sg.dg.graphics.util.{GLUtil, DisplayUtil}
-import org.joda.time
 
-import scala.collection.mutable
 import org.lwjgl.opengl.{GL40, GL20}
 import org.lwjgl.BufferUtils
+
+import scala.collection.mutable
+import scala.collection.immutable
 
 /**
  * Created by bodie on 7/21/14.
@@ -37,6 +38,21 @@ object Shaders {
       "world" -> 0
     )
   )
+
+  private val defaultVertexSubroutines = immutable.HashMap[String, String](
+    "vertexCamera" -> "fsQuad"
+  )
+
+  private var fragmentSubroutines = mutable.HashMap[String, mutable.HashMap[String, Int]](
+    // subroutines for frag shader go here
+  )
+
+  private val defaultFragmentSubroutines = immutable.HashMap[String, String](
+    // default subroutines go here
+  )
+
+  private var vertexSubroutineBuffer = BufferUtils.createIntBuffer( vertexSubroutines.keys.size )
+  private var fragmentSubroutineBuffer = BufferUtils.createIntBuffer( fragmentSubroutines.keys.size )
 
   private val vertShaderSources = mutable.HashMap[String, String](
     "default" -> "res/shaders/screen.vert"
@@ -121,29 +137,54 @@ object Shaders {
     }
   }
 
-  def getVertexSubroutines( ) {
+  def getSubroutines( ) {
+    getStageSubroutines( GL20.GL_VERTEX_SHADER )
+    getStageSubroutines( GL20.GL_FRAGMENT_SHADER )
+  }
+
+  private def getStageSubroutines( target: Int ) {
+    val (subroutineMap, defaultTargetSubroutines, targetBuffer) = target match {
+      case GL20.GL_VERTEX_SHADER => (vertexSubroutines, defaultVertexSubroutines, vertexSubroutineBuffer)
+      case GL20.GL_FRAGMENT_SHADER => (fragmentSubroutines, defaultFragmentSubroutines, fragmentSubroutineBuffer)
+      case _ => (null, null, null)
+    }
+
     // Go through the list of subroutine uniforms.
-    for( subUniformName <- vertexSubroutines.keys ) {
+    for( subUniformName <- subroutineMap.keys ) {
       // First, get the ID of the uniform name itself, as "self".
-      vertexSubroutines( subUniformName )( "self" ) = GL40.glGetSubroutineUniformLocation( shaderProgramId, GL20.GL_VERTEX_SHADER, subUniformName )
+      subroutineMap( subUniformName )( "self" ) = GL40.glGetSubroutineUniformLocation( shaderProgramId, target, subUniformName )
       // Then, for each subroutine for the uniform,
-      for( subName <- vertexSubroutines( subUniformName ).keys if subName != "self" ) {
+      for( subName <- subroutineMap( subUniformName ).keys if subName != "self" ) {
         // Get the ID for that subroutine and attach it to the named key in the map.
-        vertexSubroutines( subUniformName )( subName ) = GL40.glGetSubroutineIndex( shaderProgramId, GL20.GL_VERTEX_SHADER, subName )
-        GLUtil.exitOnGLError( "error in getVertexSubroutines: " + subName + ": id = " + vertexSubroutines( subUniformName )( subName ) )
+        subroutineMap( subUniformName )( subName ) = GL40.glGetSubroutineIndex( shaderProgramId, target, subName )
+        GLUtil.exitOnGLError( "error in getStageSubroutines for " + target + ": " + subName + ": id = " + subroutineMap( subUniformName )( subName ) )
       }
+      // Set the default value in the buffer
+      targetBuffer.put( subroutineMap( subUniformName )( "self" ), subroutineMap( subUniformName )( defaultTargetSubroutines( subUniformName ) ) )
     }
   }
 
-  def setVertexSubroutine( sub: String, selection: String ) {
-    val buf = BufferUtils.createIntBuffer( vertexSubroutines.keys.size )
-    buf.put(vertexSubroutines( sub )( "self" ), vertexSubroutines( sub )( selection ))
-    GL40.glUniformSubroutinesu( GL20.GL_VERTEX_SHADER, buf )
-    GLUtil.exitOnGLError(
-      "buf = [" + buf.get(0) + "]" +
-      "\n  str = " + buf.toString( ) +
-      "\n  GL_ACTIVE_SUBROUTINE_UNIFORM_LOCATIONS = " + GL40.glGetProgramStagei(shaderProgramId, GL20.GL_VERTEX_SHADER, GL40.GL_ACTIVE_SUBROUTINE_UNIFORM_LOCATIONS) +
-      "\n  GL_ACTIVE_SUBROUTINES = " + GL40.glGetProgramStagei(shaderProgramId, GL20.GL_VERTEX_SHADER, GL40.GL_ACTIVE_SUBROUTINES))
+  def setVertexSubroutine( subs: (String, String)* ) {
+    setSubroutine( GL20.GL_VERTEX_SHADER, subs )
+  }
+
+  def setFragmentSubroutine( subs: (String, String)* ) {
+    setSubroutine( GL20.GL_FRAGMENT_SHADER, subs )
+  }
+
+  private def setSubroutine( target: Int, subs: Seq[(String, String)] ) {
+    val (subroutineMap, buf) = target match {
+      case GL20.GL_VERTEX_SHADER => (vertexSubroutines, vertexSubroutineBuffer)
+      case GL20.GL_FRAGMENT_SHADER => (fragmentSubroutines, fragmentSubroutineBuffer)
+      case _ => (null, null)
+    }
+
+    for( (uniform, sub) <- subs ) {
+      buf.put( subroutineMap( uniform )( "self" ), subroutineMap( uniform )( sub ) )
+    }
+
+    GL40.glUniformSubroutinesu( target, buf )
+    GLUtil.exitOnGLError( )
   }
 }
 

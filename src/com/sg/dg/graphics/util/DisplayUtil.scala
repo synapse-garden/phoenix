@@ -53,7 +53,6 @@ object DisplayUtil {
       Display.create( pixelFormat, contextAttributes )
 
       setDim( dm.getWidth, dm.getHeight )
-
     } catch {
       case e: Exception =>
         err.println( "Error setting up Display: " + e.getMessage )
@@ -69,7 +68,7 @@ object DisplayUtil {
       Shaders.useProgram( )
       Shaders.getUniforms( )
       Shaders.getAttribs( )
-      Shaders.getVertexSubroutines( )
+      Shaders.getSubroutines( )
     }
   }
 
