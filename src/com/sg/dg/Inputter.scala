@@ -9,22 +9,21 @@ import org.lwjgl.input.Keyboard
 import collection.mutable.HashMap
 import com.sg.dg.graphics.util.DisplayUtil
 import com.sg.dg.math.Math
-import org.joda.time.DateTime
 
 object Inputter {
   val keysDown = HashMap[Int, Boolean](Keyboard.KEY_ESCAPE -> false).withDefaultValue(false)
 
-  private var _timeMs: Long = 0
+  private var _timeNs: Long = 0
   private var _frameTime: Long = 0
 
   private def updateTime( ) {
-    val nowTime = DateTime.now.getMillis( )
-    _frameTime = nowTime - timeMs
-    _timeMs = nowTime
+    val nowTime = System.nanoTime
+    _frameTime = nowTime - timeNs
+    _timeNs = nowTime
   }
 
   private def initTime( ) {
-    _timeMs = DateTime.now.getMillis( )
+    _timeNs = System.nanoTime
   }
 
   private def updateMouse( ) {
@@ -50,7 +49,7 @@ object Inputter {
   def mouseY_=( newY: Int ) = _mouseY = Math.clamp( newY, 0, DisplayUtil.width )
 
   def exitRequested: Boolean = keysDown( Keyboard.KEY_ESCAPE )
-  def timeMs: Long = _timeMs
+  def timeNs: Long = _timeNs
   def frameTime: Long = _frameTime
 
   def init( ) {

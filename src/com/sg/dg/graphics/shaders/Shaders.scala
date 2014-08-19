@@ -126,7 +126,7 @@ object Shaders {
   }
 
   def updateUniforms( ) {
-    GL20.glUniform1f( uniforms( "time" ), Inputter.timeMs / 1000.0f )
+    GL20.glUniform1f( uniforms( "time" ), Inputter.timeNs / 1000000.0f )
     GL20.glUniform2i( uniforms( "resolution" ), DisplayUtil.width, DisplayUtil.height )
     GL20.glUniform2f( uniforms( "mouse" ), Inputter.mouseModX, Inputter.mouseModY )
     GL20.glUniform3f( uniforms( "cameraPos" ), GLCamera.cameraX, GLCamera.cameraY, GLCamera.cameraZ )
