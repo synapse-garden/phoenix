@@ -1,3 +1,4 @@
-# hello-lwjgl-scala
+phoenix
+=======
 
-Don't forget to `git fetch` in order to see the latest feature branches.
+A procedural universe engine in Scala.
