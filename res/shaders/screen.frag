@@ -10,13 +10,13 @@ out vec4 outputColor;
 subroutine vec4 fragment( );
 subroutine uniform fragment fragmentProcess;
 
-vec4 black = vec4( 0.0, 0.0, 0.0, 0.0 );
+vec4 black = vec4( 0.0 );
 
 subroutine( fragment ) vec4 fsQuad( ) {
     vec2 position = ( gl_FragCoord.xy / resolution.xy );
     float ratio = float(resolution.x) / float(resolution.y);
-    vec2 sunPos = mouse / resolution;
-    //vec2 sunPos = vec2( 0.75, sin( time*0.4 )*0.45 + 0.43 );
+    //vec2 sunPos = mouse / resolution;
+    vec2 sunPos = vec2( 0.75, sin( time*0.1 )*0.45 + 0.43 );
 
     vec3 atmo = vec3( 0.7, 0.9, 1.2 );
 

@@ -11,8 +11,8 @@ void main( void ) {
 
     vec2 position = ( gl_FragCoord.xy / resolution.xy );
     float ratio = float(resolution.x) / float(resolution.y);
-    vec2 sunPos = mouse / resolution;
-    //vec2 sunPos = vec2( 0.75, sin( time*0.4 )*0.45 + 0.43 );
+    //vec2 sunPos = mouse / resolution;
+    vec2 sunPos = vec2( 0.75, sin( time*0.4 )*0.45 + 0.43 );
 
     vec3 atmo = vec3( 0.7, 0.9, 1.2 );
 
