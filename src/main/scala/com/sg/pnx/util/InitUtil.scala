@@ -25,19 +25,10 @@ object InitUtil {
 
   private def loadNativeLibs( ) {
     if( !IOUtil.checkForNativeLibs( ) )
-      IOUtil.extractJar( src = new File( SysUtil.jarPath ), dst = new File( SysUtil.nativeLibPath ) )
+      for( jar <- SysUtil.jarPaths ) IOUtil.extractJar( src = new File( jar ), dst = new File( SysUtil.nativeLibPath ) )
 
-    // SysUtil.addNativePath( SysUtil.nativeLibPath )
-    // System.setProperty( "java.library.path", SysUtil.nativeLibPath )
-    // for( lib <- SysUtil.nativeLibs.keys ) System.loadLibrary( SysUtil.nativeLibs( lib ) )
-
-    for( lib <- SysUtil.nativeLibs.keys )
-      System.load(
-        SysUtil.rootAbsolutePath +
-        SysUtil.separator +
-        SysUtil.nativeLibPath +
-        SysUtil.nativeLibs( lib ) +
-        "." + SysUtil.nativeLibExtension )
+    SysUtil.addNativePath( SysUtil.nativeLibPath )
+    println( System.getProperty( "java.library.path" ) )
   }
 }
 
