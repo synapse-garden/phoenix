@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/phoenix-sbt.iml" filepath="$PROJECT_DIR$/.idea/modules/phoenix-sbt.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/phoenix-sbt-build.iml" filepath="$PROJECT_DIR$/.idea/modules/phoenix-sbt-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/phoenix.iml" filepath="$PROJECT_DIR$/.idea/modules/phoenix.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/phoenix-build.iml" filepath="$PROJECT_DIR$/.idea/modules/phoenix-build.iml" />
     </modules>
   </component>
 </project>
