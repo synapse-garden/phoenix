@@ -14,6 +14,15 @@ object IOUtil {
     lines
   }
 
+  def checkAndMakeDir( dir: File ) {
+    if( !dir.exists ) {
+      val parent = dir.getParentFile
+      if( parent.exists ) { dir.mkdir( ) } // done
+      else checkAndMakeDir( parent )
+      dir.mkdir( )
+    }
+  }
+
   def writeToFile( path: String, data: Array[Byte] ): Unit =
     using( new BufferedOutputStream( new FileOutputStream( new File( path ) ) ) )( _.write( data ) )
 
@@ -25,6 +34,7 @@ object IOUtil {
 
   // extractJar dumps the contents of the jar at src to the folder dst.
   def extractJar( src: File, dst: File ) {
+    checkAndMakeDir( dst )
     val basename = src.getName.substring( 0, src.getName.lastIndexOf(".") )
     dst.mkdirs( )
 
@@ -33,7 +43,7 @@ object IOUtil {
     while( enu.hasMoreElements ) {
       val entry = enu.nextElement
       val entryPath =
-        if( entry.getName.startsWith(basename) ) entry.getName.substring( basename.length )
+        if( entry.getName.startsWith( basename ) ) entry.getName.substring( basename.length )
         else entry.getName
 
       if( entry.isDirectory ) {
@@ -49,11 +59,12 @@ object IOUtil {
   }
 
   def extractJarLibToPath( src: String, dst: File ) = {
+    checkAndMakeDir( dst )
     val ext = SysUtil.nativeLibExtension
     val toFile = new File( dst, src + ext )
-    if( toFile.isFile ) { if( !toFile.delete( ) ) throw new Exception( "ailed to delete lib " + toFile + "." ) }
+    if( toFile.isFile && !toFile.delete( ) ) throw new Exception( "failed to delete lib " + toFile + "." )
     val istream = getClass.getClassLoader.getResourceAsStream( src + ext )
-    val ostream = new FileOutputStream(toFile)
+    val ostream = new FileOutputStream( toFile )
     copyStream( istream, ostream )
     ostream.close( )
     istream.close( )
@@ -62,8 +73,8 @@ object IOUtil {
   private def copyStream( istream: InputStream, ostream: OutputStream ): Unit = {
     var bytes =  new Array[Byte](1024)
     var len = -1
-    while({ len = istream.read(bytes, 0, 1024); len != -1 })
-      ostream.write(bytes, 0, len)
+    while({ len = istream.read( bytes, 0, 1024 ); len != -1 })
+      ostream.write( bytes, 0, len )
   }
 
   private def using[A <: {def close( ): Unit}, B]( resource: A )( f: A => B ): B =

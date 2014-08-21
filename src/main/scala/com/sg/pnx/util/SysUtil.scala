@@ -53,7 +53,6 @@ object SysUtil {
   }
 
   def nativeLibPath = {
-
     "res" + separator + "native" + separator + os + separator
   }
 
@@ -77,12 +76,15 @@ object SysUtil {
   }
 
   def checkForNativeLibs( ): Boolean = {
-    nativeLibs.forall( lib => new File( nativeLibPath + lib._2 + "." + nativeLibExtension ).isFile )
+    nativeLibs.keys.forall( libName => {
+      new File( nativeLibPath + nativeLibs.get( libName ) + "." + nativeLibExtension ).isFile
+    } )
   }
 
   def loadNativeLibs( ) {
     if( !checkForNativeLibs( ) )
-      for( lib <- nativeLibs.keys ) IOUtil.extractJarLibToPath( src = nativeLibs( lib ), new File( nativeLibPath ) )
+      for( (libName, lib) <- nativeLibs )
+        IOUtil.extractJarLibToPath( src = lib, new File( nativeLibPath ) )
 
     SysUtil.addNativePath( nativeLibPath )
   }
