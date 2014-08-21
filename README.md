@@ -1,20 +1,16 @@
 phoenix
 =======
 
-A procedural universe engine in Scala.
-
----
-
 phoenix is currently under heavy development.  We'll update this space with a timeline when we announce our alpha release.
 
 ### Table of Contents
 
-- [Getting phoenix](# Getting phoenix)
-- [Using phoenix](# Using phoenix)
-- [Build and run](# Build and run phoenix)
- - [Getting sbt](# Getting sbt)
- - [Using sbt](# Using sbt to run phoenix)
-- [Hacking phoenix](# Hacking phoenix)
+- [Getting phoenix](#getting-phoenix)
+- [Using phoenix](#using-phoenix)
+- [Build and run](#build-and-run-phoenix)
+ - [Getting sbt](#getting-sbt)
+ - [Using sbt](#using-sbt-to-run-phoenix)
+- [Hacking phoenix](#hacking-phoenix)
 
 # Getting phoenix
 
