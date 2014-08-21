@@ -75,17 +75,17 @@ object SysUtil {
     }
   }
 
-  def checkForNativeLibs( ): Boolean = {
-    nativeLibs.keys.forall( libName => {
-      new File( nativeLibPath + nativeLibs.get( libName ) + "." + nativeLibExtension ).isFile
-    } )
-  }
-
   def loadNativeLibs( ) {
     if( !checkForNativeLibs( ) )
       for( (libName, lib) <- nativeLibs )
         IOUtil.extractJarLibToPath( src = lib, new File( nativeLibPath ) )
 
     SysUtil.addNativePath( nativeLibPath )
+  }
+
+  private def checkForNativeLibs( ): Boolean = {
+    nativeLibs.keys.forall( libName => {
+      new File( nativeLibPath + nativeLibs.get( libName ) + nativeLibExtension ).isFile
+    } )
   }
 }
