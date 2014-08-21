@@ -14,7 +14,7 @@ import java.io.File
 
 object InitUtil {
   def init( ) {
-    loadNativeLibs( )
+    SysUtil.loadNativeLibs( )
     DisplayUtil.setupDisplay( fullscreen = !Game.DEBUG )
     Inputter.init( )
     DisplayUtil.setupShaders( )
@@ -22,13 +22,4 @@ object InitUtil {
     setupGL( DisplayUtil.width, DisplayUtil.height )
     GLCamera setupCamera( 0f, 1.2f, -8.0f )
   }
-
-  private def loadNativeLibs( ) {
-    if( !IOUtil.checkForNativeLibs( ) )
-      for( jar <- SysUtil.jarPaths ) IOUtil.extractJar( src = new File( jar ), dst = new File( SysUtil.nativeLibPath ) )
-
-    SysUtil.addNativePath( SysUtil.nativeLibPath )
-    println( System.getProperty( "java.library.path" ) )
-  }
 }
-

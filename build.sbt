@@ -4,7 +4,7 @@ version := "1.0"
 
 scalaVersion := "2.10.2"
 
-classpathTypes += "maven-plugin"
+// classpathTypes += "maven-plugin"
 
 libraryDependencies ++= Seq(
   "org.lwjgl.lwjgl" % "lwjgl" % "2.9.1",

@@ -23,6 +23,7 @@ object IOUtil {
   def appendToFile( path: String, data: String ): Unit =
     using( new PrintWriter( new FileWriter(path, true) ) )( _.println(data) )
 
+  // extractJar dumps the contents of the jar at src to the folder dst.
   def extractJar( src: File, dst: File ) {
     val basename = src.getName.substring( 0, src.getName.lastIndexOf(".") )
     dst.mkdirs( )
@@ -47,9 +48,15 @@ object IOUtil {
     }
   }
 
-  def checkForNativeLibs( ): Boolean = {
-    val (libs, ext, path) = (SysUtil.nativeLibs.keys, SysUtil.nativeLibExtension, SysUtil.nativeLibPath)
-    libs.forall( lib => new File( SysUtil.nativeLibPath + SysUtil.nativeLibs( lib ) + "." + ext ).isFile )
+  def extractJarLibToPath( src: String, dst: File ) = {
+    val ext = SysUtil.nativeLibExtension
+    val toFile = new File( dst, src + ext )
+    if( toFile.isFile ) { if( !toFile.delete( ) ) throw new Exception( "ailed to delete lib " + toFile + "." ) }
+    val istream = getClass.getClassLoader.getResourceAsStream( src + ext )
+    val ostream = new FileOutputStream(toFile)
+    copyStream( istream, ostream )
+    ostream.close( )
+    istream.close( )
   }
 
   private def copyStream( istream: InputStream, ostream: OutputStream ): Unit = {

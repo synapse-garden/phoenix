@@ -23,7 +23,7 @@ object SysUtil {
 
   def separator = {
     os match {
-      case "linux" => "/"
+      case "linux" | "mac" => "/"
       case _ => "\\"
     }
   }
@@ -47,12 +47,13 @@ object SysUtil {
 
   def nativeLibExtension = {
     os match {
-      case "linux" => "so"
-      case _ => "dll"
+      case "linux" => ".so"
+      case _ => ".dll"
     }
   }
 
   def nativeLibPath = {
+
     "res" + separator + "native" + separator + os + separator
   }
 
@@ -73,5 +74,16 @@ object SysUtil {
     if( !paths.contains( pathToAdd ) ) {
       usrPathsField.set( null, paths :+ pathToAdd )
     }
+  }
+
+  def checkForNativeLibs( ): Boolean = {
+    nativeLibs.forall( lib => new File( nativeLibPath + lib._2 + "." + nativeLibExtension ).isFile )
+  }
+
+  def loadNativeLibs( ) {
+    if( !checkForNativeLibs( ) )
+      for( lib <- nativeLibs.keys ) IOUtil.extractJarLibToPath( src = nativeLibs( lib ), new File( nativeLibPath ) )
+
+    SysUtil.addNativePath( nativeLibPath )
   }
 }
