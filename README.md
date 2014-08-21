@@ -21,7 +21,7 @@ git clone https://github.com/synapse-garden/phoenix.git
 # Using phoenix
 
 At present, phoenix is not a full-fledged engine.  A demo project is included, which is suitable for testing purposes.
- > See [_hacking phoenix_](# Hacking phoenix) for more details, or read on!
+ > See [_hacking phoenix_](#hacking-phoenix) for more details, or read on!
 
 # Build and run phoenix
 
