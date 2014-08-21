@@ -78,7 +78,7 @@ At SynapseGarden, we use [IntelliJ IDEA](http://www.jetbrains.com/idea/).  Once 
 However, you can use any editor you like, such as [atom.io](https://github.com/atom/atom/blob/master/README.md#building) or [Sublime Text](http://sublimetext.com).
 
 
-Set up a run configuration using the [how-to at IntelliJ's site](http://www.jetbrains.com/idea/webhelp/creating-and-editing-run-debug-configurations.html).  Use the following config:
+For IDEA, set up a run configuration using the [how-to at IntelliJ's site](http://www.jetbrains.com/idea/webhelp/creating-and-editing-run-debug-configurations.html).  Use the following config:
  - Type: `Application`
  - Main class: `com.sg.pnx.Game`
  - Use classpath of module: `<your project name>`
