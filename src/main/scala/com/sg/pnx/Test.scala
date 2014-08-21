@@ -8,6 +8,7 @@ import System.nanoTime
  */
 
 object Test extends App {
+  val numIterations = 100000
   println("Remap Test - " + testRemap(550, 0.5f))
   println("Lerp Test - " + testLerp(0.372f, 372))
   println("Fast Sin Test A - Roots - " + testFastSinA )
@@ -50,9 +51,9 @@ object Test extends App {
   def testFastSinC( ): (Float) = {
     var i = 0
     val timeA = System.nanoTime
-    val tempA = for (i <- 0 to 1000000000 ) scala.math.sin( i*0.042375f )
+    val tempA = for (i <- 0 to numIterations ) scala.math.sin( i*0.042375f )
     val timeB = System.nanoTime
-    val tempB = for (i <- 0 to 1000000000 ) Math.fastSin( i*0.042375f )
+    val tempB = for (i <- 0 to numIterations ) Math.fastSin( i*0.042375f )
     val timeC = System.nanoTime
 
     (timeB - timeA).toFloat / (timeC - timeB).toFloat
