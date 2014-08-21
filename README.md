@@ -73,14 +73,15 @@ Press `ctrl + d` to exit the sbt shell.
 
 # Hacking phoenix
 
-At SynapseGarden, we use [IntelliJ IDEA](http://www.jetbrains.com/idea/).  Once you've cloned phoenix, it should be trivial to open as an IDEA project.
+At SynapseGarden, we use [IntelliJ IDEA](http://www.jetbrains.com/idea/).  Once you've cloned phoenix, it should be trivial to open as an IDEA project.  We also use [`idea-sbt-plugin`](http://plugins.jetbrains.com/plugin/?idea&id=5007).
 
 However, you can use any editor you like, such as [atom.io](https://github.com/atom/atom/blob/master/README.md#building) or [Sublime Text](http://sublimetext.com).
-
 
 For IDEA, set up a run configuration using the [how-to at IntelliJ's site](http://www.jetbrains.com/idea/webhelp/creating-and-editing-run-debug-configurations.html).  Use the following config:
  - Type: `Application`
  - Main class: `com.sg.pnx.Game`
  - Use classpath of module: `<your project name>`
+
+If you're using idea-sbt-plugin, you'll also want to substitute the `Make` step under "Before launch" with `SBT:compile`.
 
 _See our [Wiki](https://github.com/synapse-garden/phoenix/wiki) for details on the project structure and classes._
