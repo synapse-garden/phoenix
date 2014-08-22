@@ -83,5 +83,6 @@ For IDEA, set up a run configuration using the [how-to at IntelliJ's site](http:
  - Type: `Application`
  - Main class: `com.sg.pnx.Game`
  - Use classpath of module: `phoenix`
+ - Replace the `Make` step under "Before launch" with `SBT:compile`.
 
 _See our [Wiki](https://github.com/synapse-garden/phoenix/wiki) for details on the project structure and classes._
