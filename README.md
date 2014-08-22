@@ -29,6 +29,8 @@ To build and run phoenix, you'll need [sbt](http://www.scala-sbt.org/), a build 
 
 sbt automatically downloads the native dependencies for phoenix, and accelerates the build process.
 
+You'll also need [JDK version 7 or greater](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html).
+
 ## Getting sbt
 
 #### Linux (.deb)
