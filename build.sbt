@@ -2,9 +2,7 @@ name := "phoenix"
 
 version := "1.0"
 
-scalaVersion := "2.10.2"
-
-// classpathTypes += "maven-plugin"
+scalaVersion := "2.11.2"
 
 libraryDependencies ++= Seq(
   "org.lwjgl.lwjgl" % "lwjgl" % "2.9.1",
