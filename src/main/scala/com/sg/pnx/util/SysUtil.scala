@@ -48,16 +48,13 @@ object SysUtil {
   def nativeLibExtension = {
     os match {
       case "linux" => ".so"
-      case _ => ".dll"
+      case "windows" => ".dll"
+      case _ => "???"
     }
   }
 
   def nativeLibPath = {
     "res" + separator + "native" + separator + os + separator
-  }
-
-  def jarPaths = {
-    Seq[String]( "lib" + separator + "lwjgl-platform-2.9.1-natives-" + os + ".jar" )
   }
 
   def rootAbsolutePath = {
@@ -77,8 +74,8 @@ object SysUtil {
 
   def loadNativeLibs( ) {
     if( !checkForNativeLibs( ) )
-      for( (libName, lib) <- nativeLibs )
-        IOUtil.extractJarLibToPath( src = lib, new File( nativeLibPath ) )
+      for( (_, lib) <- nativeLibs )
+        IOUtil.extractJarLibToPath( src = lib, dst = new File( nativeLibPath ) )
 
     SysUtil.addNativePath( nativeLibPath )
   }

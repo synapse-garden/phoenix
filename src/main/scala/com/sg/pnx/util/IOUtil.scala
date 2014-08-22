@@ -2,6 +2,7 @@ package com.sg.pnx.util
 
 import java.io._
 import java.util.jar.JarFile
+import java.nio.file.NotLinkException
 
 /**
  * Created by bodie on 7/20/14.
@@ -62,7 +63,7 @@ object IOUtil {
     checkAndMakeDir( dst )
     val ext = SysUtil.nativeLibExtension
     val toFile = new File( dst, src + ext )
-    if( toFile.isFile && !toFile.delete( ) ) throw new Exception( "failed to delete lib " + toFile + "." )
+    if( toFile.isFile ) try{ toFile.delete( ) } catch { case e: NotLinkException => println( "failed to delete lib " + toFile + ": " + e.getMessage ); throw e }
     val istream = getClass.getClassLoader.getResourceAsStream( src + ext )
     val ostream = new FileOutputStream( toFile )
     copyStream( istream, ostream )
