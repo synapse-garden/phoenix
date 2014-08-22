@@ -17,7 +17,7 @@ project/plugins/project/
 .worksheet
 
 # IDEA Scala project specific
-.idea/workspace.xml
+.idea/*
 
 lib/
 res/native/linux/*
