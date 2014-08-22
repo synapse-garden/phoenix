@@ -75,7 +75,9 @@ Press `ctrl + d` to exit the sbt shell.
 
 # Hacking phoenix
 
-At SynapseGarden, we use [IntelliJ IDEA](http://www.jetbrains.com/idea/).  Once you've cloned phoenix, it should be trivial to open as an IDEA project.  We also use [`idea-sbt-plugin`](http://plugins.jetbrains.com/plugin/?idea&id=5007).
+At SynapseGarden, we use [IntelliJ IDEA](http://www.jetbrains.com/idea/).  To auto-generate an IDEA project for working on phoenix, simply use the command `gen-idea` from inside sbt.  You can then open the location as a project using IDEA.  
+
+We also like to use [`idea-sbt-plugin`](http://plugins.jetbrains.com/plugin/?idea&id=5007).
 
 However, you can use any editor you like, such as [atom.io](https://github.com/atom/atom/blob/master/README.md#building) or [Sublime Text](http://sublimetext.com).
 
