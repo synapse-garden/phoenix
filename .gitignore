@@ -18,6 +18,7 @@ project/plugins/project/
 
 # IDEA Scala project specific
 .idea/*
+.idea_modules/*
 
 lib/
 res/native/linux/*
