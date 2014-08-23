@@ -18,7 +18,15 @@ object SysUtil {
   def bitness = {
     val resp = System.getProperty( "os.arch" )
     if( resp.indexOf("64") >= 0 ) "64"
-    else "32"
+    else {
+      if( os == "windows" ) {
+        var arch = System.getenv( "PROCESSOR_ARCHITEW6432" )
+        if( arch != null && !arch.isEmpty ) if( arch.indexOf( "64" ) >= 0 ) "64" else "32"
+        else arch = System.getenv( "PROCESSOR_ARCHITECTURE" )
+        if( arch != null && !arch.isEmpty ) if( arch.indexOf( "64" ) >= 0 ) "64" else "32"
+      }
+      else "32"
+    }
   }
 
   def separator = {
