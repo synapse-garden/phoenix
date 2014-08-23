@@ -62,9 +62,9 @@ object IOUtil {
   def extractJarLibToPath( src: String, dst: File ) = {
     checkAndMakeDir( dst )
     val ext = SysUtil.nativeLibExtension
-    val toFile = new File( dst, src + ext )
+    val toFile = new File( dst, src )
     if( toFile.isFile ) try{ toFile.delete( ) } catch { case e: NotLinkException => println( "failed to delete lib " + toFile + ": " + e.getMessage ); throw e }
-    val istream = getClass.getClassLoader.getResourceAsStream( src + ext )
+    val istream = getClass.getClassLoader.getResourceAsStream( src )
     val ostream = new FileOutputStream( toFile )
     copyStream( istream, ostream )
     ostream.close( )

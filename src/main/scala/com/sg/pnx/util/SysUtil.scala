@@ -37,18 +37,14 @@ object SysUtil {
   }
 
   def nativeLibs = {
-    immutable.HashMap[String, String](
-      ("opengl", os + bitness match {
-        case "linux32" => "liblwjgl"
-        case "linux64" => "liblwjgl64"
-        case "windows32" => "lwjgl"
-        case "windows64" => "lwjgl64"
+    immutable.HashMap[String, List[String]](
+      ("opengl", os match {
+        case "linux" => List[String]( "liblwjgl.so", "liblwjgl64.so" )
+        case "windows32" => List[String]( "lwjgl.dll", "lwjgl64.dll" )
       }),
-      ("openal", os + bitness match {
-          case "linux32" => "libopenal"
-          case "linux64" => "libopenal64"
-          case "windows32" => "OpenAL32"
-          case "windows64" => "OpenAL64"
+      ("openal", os match {
+          case "linux" => List[String]( "libopenal.so", "libopenal64.so" )
+          case "windows" => List[String]( "OpenAL32.dll", "OpenAL64.dll" )
       })
     )
   }
@@ -82,15 +78,15 @@ object SysUtil {
 
   def loadNativeLibs( ) {
     if( !checkForNativeLibs( ) )
-      for( (_, lib) <- nativeLibs )
-        IOUtil.extractJarLibToPath( src = lib, dst = new File( nativeLibPath ) )
+      for( (_, libs) <- nativeLibs )
+        for( lib <- libs ) IOUtil.extractJarLibToPath( src = lib, dst = new File( nativeLibPath ) )
 
     SysUtil.addNativePath( nativeLibPath )
   }
 
   private def checkForNativeLibs( ): Boolean = {
     nativeLibs.keys.forall( libName => {
-      new File( nativeLibPath + nativeLibs.get( libName ) + nativeLibExtension ).isFile
+      nativeLibs.get( libName ).forall( lib => new File( nativeLibPath + lib ).isFile )
     } )
   }
 }
