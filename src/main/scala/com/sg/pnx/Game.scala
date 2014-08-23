@@ -11,7 +11,7 @@ import com.sg.pnx.reality.World
 import com.sg.pnx.graphics.util.DisplayUtil
 
 object Game extends App {
-  val DEBUG = true
+  val DEBUG = false//true
   val FRAMERATE = 60
 
   InitUtil init( )
