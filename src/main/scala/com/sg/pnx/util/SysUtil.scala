@@ -40,7 +40,7 @@ object SysUtil {
     immutable.HashMap[String, List[String]](
       ("opengl", os match {
         case "linux" => List[String]( "liblwjgl.so", "liblwjgl64.so" )
-        case "windows32" => List[String]( "lwjgl.dll", "lwjgl64.dll" )
+        case "windows" => List[String]( "lwjgl.dll", "lwjgl64.dll" )
       }),
       ("openal", os match {
           case "linux" => List[String]( "libopenal.so", "libopenal64.so" )
