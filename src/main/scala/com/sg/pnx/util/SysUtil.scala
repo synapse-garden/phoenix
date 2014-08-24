@@ -41,10 +41,12 @@ object SysUtil {
       ("opengl", os match {
         case "linux" => List[String]( "liblwjgl.so", "liblwjgl64.so" )
         case "windows" => List[String]( "lwjgl.dll", "lwjgl64.dll" )
+      	case "osx" => List[String]( "liblwjgl.jnilib" )
       }),
       ("openal", os match {
           case "linux" => List[String]( "libopenal.so", "libopenal64.so" )
           case "windows" => List[String]( "OpenAL32.dll", "OpenAL64.dll" )
+          case "osx" => List[String]( "openal.dylib" )
       })
     )
   }
