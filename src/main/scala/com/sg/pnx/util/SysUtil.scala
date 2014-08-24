@@ -31,7 +31,7 @@ object SysUtil {
 
   def separator = {
     os match {
-      case "linux" | "mac" => "/"
+      case "linux" | "osx" => "/"
       case _ => "\\"
     }
   }
