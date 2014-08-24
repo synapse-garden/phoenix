@@ -1,4 +1,5 @@
-#version 440 core
+#version 320 core
+#extension GL_ARB_shader_subroutine : require
 
 uniform ivec2 resolution;
 uniform vec2 mouse;

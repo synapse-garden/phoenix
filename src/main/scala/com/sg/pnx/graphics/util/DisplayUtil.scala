@@ -39,7 +39,7 @@ object DisplayUtil {
           else m1
       )
 
-      val contextAttributes = new ContextAttribs( 4, 4 )
+      val contextAttributes = new ContextAttribs( 3, 2 )
         .withForwardCompatible( true )
         .withProfileCore( true )
       val pixelFormat = new PixelFormat( )

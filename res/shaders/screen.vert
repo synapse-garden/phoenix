@@ -1,4 +1,5 @@
-#version 440 core
+#version 320 core
+#extension GL_ARB_shader_subroutine : require
 
 uniform mat4 camera;
 in vec3 inPosition;
@@ -14,7 +15,6 @@ subroutine( cameraTransform ) vec4 world( mat4 camera, vec4 vertex ) {
     return camera * vertex;
 }
 
-void main() {
+void main( ) {
     gl_Position = vertexCamera( camera, vec4( inPosition, 1.0 ) );
 }
-

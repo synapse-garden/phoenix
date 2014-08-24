@@ -4,7 +4,7 @@ import com.sg.pnx.Inputter
 import com.sg.pnx.graphics.GLCamera
 import com.sg.pnx.graphics.util.{GLUtil, DisplayUtil}
 
-import org.lwjgl.opengl.{GL40, GL20}
+import org.lwjgl.opengl.{GL40, GL20, ARBShaderSubroutine}
 import org.lwjgl.BufferUtils
 
 import scala.collection.mutable
@@ -157,11 +157,11 @@ object Shaders {
     // Go through the list of subroutine uniforms.
     for( subUniformName <- subroutineMap.keys ) {
       // First, get the ID of the uniform name itself, as "self".
-      subroutineMap( subUniformName )( "self" ) = GL40.glGetSubroutineUniformLocation( shaderProgramId, target, subUniformName )
+      subroutineMap( subUniformName )( "self" ) = ARBShaderSubroutine.glGetSubroutineUniformLocation( shaderProgramId, target, subUniformName )
       // Then, for each subroutine for the uniform,
       for( subName <- subroutineMap( subUniformName ).keys if subName != "self" ) {
         // Get the ID for that subroutine and attach it to the named key in the map.
-        subroutineMap( subUniformName )( subName ) = GL40.glGetSubroutineIndex( shaderProgramId, target, subName )
+        subroutineMap( subUniformName )( subName ) = ARBShaderSubroutine.glGetSubroutineIndex( shaderProgramId, target, subName )
         GLUtil.exitOnGLError( "error in getStageSubroutines for " + target + ": " + subName + ": id = " + subroutineMap( subUniformName )( subName ) )
       }
       // Set the default value in the buffer
@@ -188,7 +188,7 @@ object Shaders {
       buf.put( subroutineMap( uniform )( "self" ), subroutineMap( uniform )( sub ) )
     }
 
-    GL40.glUniformSubroutinesu( target, buf )
+    ARBShaderSubroutine.glUniformSubroutinesu( target, buf )
     GLUtil.exitOnGLError( )
   }
 }

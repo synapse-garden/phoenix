@@ -1,7 +1,8 @@
 package com.sg.pnx.graphics.shaders
 
-import org.lwjgl.opengl.{GL11, GL20}
+import org.lwjgl.opengl.{GL11, GL20, GL32}
 import com.sg.pnx.util.IOUtil
+import com.sg.pnx.graphics.util.GLUtil
 
 /**
  * Created by bodie on 7/20/14.
@@ -60,8 +61,15 @@ object ShaderHandler {
       GL20.glShaderSource( shader, shaderCode )
       GL20.glCompileShader( shader )
 
-      if( GL20.glGetShaderi( shader, GL20.GL_COMPILE_STATUS ) == GL11.GL_FALSE )
-        throw new RuntimeException( "Error creating shader: " + GL20.glGetShaderInfoLog( shader, GL20.glGetShaderi( shader, GL20.GL_INFO_LOG_LENGTH ) ) )
+      if( GL20.glGetShaderi( shader, GL20.GL_COMPILE_STATUS ) == GL11.GL_FALSE ) {
+        throw new RuntimeException("Error creating shader:\n  " +
+          GL20.glGetShaderInfoLog( shader, GL20.glGetShaderi(shader, GL20.GL_INFO_LOG_LENGTH) ) +
+          "  Type: " + (shaderType match {
+            case GL20.GL_VERTEX_SHADER => "GL_VERTEX_SHADER"
+            case GL20.GL_FRAGMENT_SHADER => "GL_FRAGMENT_SHADER"
+            case GL32.GL_GEOMETRY_SHADER => "GL_GEOMETRY_SHADER"
+          }))
+      }
 
       shader
     }
