@@ -9,7 +9,7 @@ import java.lang.reflect.Field
  */
 object SysUtil {
   def os = {
-    val name = System.getProperty( "os.name" ).toLowerCase
+    name = System.getProperty( "os.name" ).toLowerCase
     if( name.indexOf("mac") >= 0 ) "osx"
     else if( name.indexOf("win") >= 0 ) "windows"
     else "linux"
@@ -31,8 +31,9 @@ object SysUtil {
 
   def separator = {
     os match {
-      case "linux" | "mac" => "/"
-      case _ => "\\"
+      case "linux" | "osx" => "/"
+      case "windows" => "\\"
+      case _ => "???"
     }
   }
 
@@ -41,10 +42,12 @@ object SysUtil {
       ("opengl", os match {
         case "linux" => List[String]( "liblwjgl.so", "liblwjgl64.so" )
         case "windows" => List[String]( "lwjgl.dll", "lwjgl64.dll" )
+        case "osx" => List[String]( "liblwjgl.jnilib" )
       }),
       ("openal", os match {
           case "linux" => List[String]( "libopenal.so", "libopenal64.so" )
           case "windows" => List[String]( "OpenAL32.dll", "OpenAL64.dll" )
+          case "osx" => List[String]( "openal.dylib" )
       })
     )
   }
