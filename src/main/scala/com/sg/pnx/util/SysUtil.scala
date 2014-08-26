@@ -9,7 +9,7 @@ import java.lang.reflect.Field
  */
 object SysUtil {
   def os = {
-    name = System.getProperty( "os.name" ).toLowerCase
+    val name = System.getProperty( "os.name" ).toLowerCase
     if( name.indexOf("mac") >= 0 ) "osx"
     else if( name.indexOf("win") >= 0 ) "windows"
     else "linux"
