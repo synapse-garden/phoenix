@@ -1,4 +1,4 @@
-#version 320 core
+#version 150 core
 #extension GL_ARB_shader_subroutine : require
 
 uniform mat4 camera;
