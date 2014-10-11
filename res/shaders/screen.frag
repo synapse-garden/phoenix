@@ -1,26 +1,39 @@
 #version 440 core
 
+//// Structs
+
+struct entity {
+    vec3 position;
+};
+
+//// Uniforms
+
 uniform ivec2 resolution;
 uniform vec2 mouse;
 
 uniform float time;
 
+//// Out
+
 out vec4 outputColor;
 
-vec4 black = vec4( 0.0, 0.0, 0.0, 0.0 );
+//// Constants
+
+vec4 opaqueBlack = vec4( 0.0, 0.0, 0.0, 1.0 );
+vec3 black = vec3( 0.0, 0.0, 0.0 );
+
+//// Subroutines
 
 subroutine vec4 layer( );
 subroutine uniform layer drawLayer;
 
-//// Structs
-struct entity {
-    vec3 position;
-};
-
 //// Function declarations
 
 // drawing functions
-vec4 sky( );
+
+vec3 drawShit( );
+vec3 crosshairs( );
+vec3 sky( );
 
 //// Function implementations
 
@@ -30,16 +43,40 @@ void main( ) {
 
 // subroutines
 subroutine( layer ) vec4 drawFsq( ) {
-    return black;
-    // return sky( );
+    vec4 color = opaqueBlack;
+
+    color.xyz += drawShit( );
+
+    return color;
 }
 
 subroutine( layer ) vec4 drawWorld( ) {
-    return black;
+    vec4 color = opaqueBlack;
+
+    color.xyz += drawShit( );
+
+    return color;
 }
 
 // drawing functions
-vec4 sky( ) {
+
+vec3 drawShit( ) {
+    return crosshairs( );
+}
+
+vec3 crosshairs( ) {
+	vec2 pos = ( gl_FragCoord.xy / resolution.xy );
+	float ratio = resolution.x / resolution.y;
+
+	vec3 color = vec3( 0.0 );
+	color.x = 0.001 / distance( mouse.x, pos.x );
+	color.y = 0.001 / distance( mouse.y, pos.y ) * ratio;
+	color.z = 0.2;
+
+	return color;
+}
+
+vec3 sky( ) {
     vec2 position = ( gl_FragCoord.xy / resolution.xy );
     float ratio = float(resolution.x) / float(resolution.y);
     vec2 sunPos = mouse / resolution;
@@ -57,5 +94,5 @@ vec4 sky( ) {
 	vec3 sun = vec3( s*1.0, s*0.55, s*0.22 );
 	atmo += atmo*sun*0.15;
 
-	return vec4( atmo*( 1.0 - sunPos.y * 0.5 ), 1.0 );
+	return vec3( atmo*( 1.0 - sunPos.y * 0.5 ) );
 }
