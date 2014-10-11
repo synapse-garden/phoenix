@@ -12,18 +12,28 @@ vec4 black = vec4( 0.0, 0.0, 0.0, 0.0 );
 subroutine vec4 layer( );
 subroutine uniform layer drawLayer;
 
+//// Function declarations
+
+// drawing functions
+vec4 sky( );
+
+//// Function implementations
+
+void main( ) {
+    outputColor = drawLayer( );
+}
+
+// subroutines
 subroutine( layer ) vec4 drawFsq( ) {
-    return black;
+    // return black;
+    return sky( );
 }
 
 subroutine( layer ) vec4 drawWorld( ) {
     return black;
 }
 
-void main( ) {
-    outputColor = drawLayer( );
-}
-
+// drawing functions
 vec4 sky( ) {
     vec2 position = ( gl_FragCoord.xy / resolution.xy );
     float ratio = float(resolution.x) / float(resolution.y);

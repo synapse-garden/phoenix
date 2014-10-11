@@ -19,13 +19,14 @@ object Displayer {
 
   private def getFsQuad( ): Entity = {
     val newId = EntityBuilder.getId( )
-    EntityBuilder.buildEntityWithSurface( id = newId, sfc = SurfaceBuilder.newSquare( pId = newId, dim = 2f, pos = new Vector4f(0f, 0f, 1f, 1f) ) )
+    val fsqSurface = SurfaceBuilder.newSquare( pId = newId, dim = 2f, pos = new Vector4f(0f, 0f, 1f, 1f) )
+    EntityBuilder.buildEntityWithSurface( id = newId, sfc = fsqSurface )
   }
 
   private def drawFsq( ) {
     Shaders.setVertexSubroutines( ("vertexCamera", "fsQuad") )
     Shaders.setFragmentSubroutines( ("drawLayer", "drawFsq") )
-    drawSurface( fsq.surface.vertexBuffer )
+    drawEntity( fsq )
     Shaders.setVertexSubroutines( ("vertexCamera", "world") )
     Shaders.setFragmentSubroutines( ("drawLayer", "drawWorld") )
     GLUtil.exitOnGLError( )
@@ -61,6 +62,10 @@ object Displayer {
     for( id <- surfacesToDraw.keys if surfacesToDraw( id ) ) {
       drawSurface( surfaces( id ).vertexBuffer )
     }
+  }
+
+  private def drawEntity( e: Entity ): Unit = {
+    drawSurface( e.surface.vertexBuffer )
   }
 
   private def drawSurface( vb: VertexBuffer ) {
