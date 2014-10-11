@@ -62,14 +62,17 @@ subroutine( layer ) vec4 drawWorld( ) {
 
 vec3 crosshairs( ) {
 	vec2 pos = ( gl_FragCoord.xy / resolution.xy );
-	float ratio = float(resolution.x) / float(resolution.y);
+	float aspect = float(resolution.x) / float(resolution.y);
 	vec2 coord = (mouse / resolution);
+	pos.x *= aspect;
+	coord.x *= aspect;
 
-	vec3 color = vec3( 0.0 );
-	color.x = 0.002 / distance( coord.x, pos.x );
-	color.y = 0.002 / distance( coord.y, pos.y ) * ratio;
-	color.z = 0.3;
+	float v = 0.0;
+	v += 0.001 / length( pos.x - coord.x );
+	v += 0.001 / length( pos.y - coord.y );
+	v += 0.001 / abs( 0.1 - length( pos - coord ) );
 
+	vec3 color = v * vec3( 1.0, 0.2, 0.02 ) + vec3( 0.0, 0.0, 0.2 );
 	return color;
 }
 
