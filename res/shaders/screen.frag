@@ -13,6 +13,9 @@ subroutine vec4 layer( );
 subroutine uniform layer drawLayer;
 
 //// Structs
+struct entity {
+    vec3 position;
+};
 
 //// Function declarations
 
@@ -32,7 +35,6 @@ subroutine( layer ) vec4 drawFsq( ) {
 }
 
 subroutine( layer ) vec4 drawWorld( ) {
-
     return black;
 }
 
