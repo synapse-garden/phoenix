@@ -12,6 +12,8 @@ vec4 black = vec4( 0.0, 0.0, 0.0, 0.0 );
 subroutine vec4 layer( );
 subroutine uniform layer drawLayer;
 
+//// Structs
+
 //// Function declarations
 
 // drawing functions
@@ -30,6 +32,7 @@ subroutine( layer ) vec4 drawFsq( ) {
 }
 
 subroutine( layer ) vec4 drawWorld( ) {
+
     return black;
 }
 
