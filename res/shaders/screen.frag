@@ -25,8 +25,8 @@ void main( ) {
 
 // subroutines
 subroutine( layer ) vec4 drawFsq( ) {
-    // return black;
-    return sky( );
+    return black;
+    // return sky( );
 }
 
 subroutine( layer ) vec4 drawWorld( ) {
