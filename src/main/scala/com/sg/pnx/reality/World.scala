@@ -5,7 +5,7 @@
 package com.sg.pnx.reality
 
 import scala.collection.mutable.HashMap
-import com.sg.pnx.graphics.Displayer
+import com.sg.pnx.graphics.{GLCamera, Displayer}
 import org.lwjgl.util.vector.Vector4f
 import com.sg.pnx.reality.matter.SurfaceBuilder
 
@@ -52,6 +52,7 @@ object World {
   }
 
   def update( ) {
+    GLCamera.updateCamera( )
     for( id <- entitiesToUpdate.keys if entitiesToUpdate( id ) ) {
       val entity = entities( id )
       entity.update( )

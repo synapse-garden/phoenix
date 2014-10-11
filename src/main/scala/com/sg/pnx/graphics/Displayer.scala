@@ -50,7 +50,6 @@ object Displayer {
   }
 
   def update( ) {
-    GLCamera.updateCamera( )
     Shaders.updateUniforms( )
   }
 
