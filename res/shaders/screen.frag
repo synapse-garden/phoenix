@@ -45,7 +45,7 @@ void main( ) {
 subroutine( layer ) vec4 drawFsq( ) {
     vec4 color = opaqueBlack;
 
-    color.xyz += drawShit( );
+    color.xyz += crosshairs( );
 
     return color;
 }
@@ -53,16 +53,12 @@ subroutine( layer ) vec4 drawFsq( ) {
 subroutine( layer ) vec4 drawWorld( ) {
     vec4 color = opaqueBlack;
 
-    color.xyz += drawShit( );
+    // color.xyz += drawShit( );
 
     return color;
 }
 
 // drawing functions
-
-vec3 drawShit( ) {
-    return crosshairs( );
-}
 
 vec3 crosshairs( ) {
 	vec2 pos = ( gl_FragCoord.xy / resolution.xy );
