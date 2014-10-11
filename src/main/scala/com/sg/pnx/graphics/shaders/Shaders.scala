@@ -44,16 +44,16 @@ object Shaders {
   )
 
   private var fragmentSubroutines = mutable.HashMap[String, mutable.HashMap[String, Int]](
-    "fragmentProcess" -> mutable.HashMap[String, Int] (
+    "drawLayer" -> mutable.HashMap[String, Int] (
       "self" -> 0,
-      "fsQuad" -> 0,
-      "world" -> 0
+      "drawFsq" -> 0,
+      "drawWorld" -> 0
+      // subroutines for frag shader go here
     )
-    // subroutines for frag shader go here
   )
 
   private val defaultFragmentSubroutines = immutable.HashMap[String, String](
-    "fragmentProcess" -> "fsQuad"
+    "drawLayer" -> "drawFsq"
   )
 
   private var vertexSubroutineBuffer = BufferUtils.createIntBuffer( vertexSubroutines.keys.size )

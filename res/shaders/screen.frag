@@ -7,12 +7,24 @@ uniform float time;
 
 out vec4 outputColor;
 
-subroutine vec4 fragment( );
-subroutine uniform fragment fragmentProcess;
-
 vec4 black = vec4( 0.0, 0.0, 0.0, 0.0 );
 
-subroutine( fragment ) vec4 fsQuad( ) {
+subroutine vec4 layer( );
+subroutine uniform layer drawLayer;
+
+subroutine( layer ) vec4 drawFsq( ) {
+    return black;
+}
+
+subroutine( layer ) vec4 drawWorld( ) {
+    return black;
+}
+
+void main( ) {
+    outputColor = drawLayer( );
+}
+
+vec4 sky( ) {
     vec2 position = ( gl_FragCoord.xy / resolution.xy );
     float ratio = float(resolution.x) / float(resolution.y);
     vec2 sunPos = mouse / resolution;
@@ -31,12 +43,4 @@ subroutine( fragment ) vec4 fsQuad( ) {
 	atmo += atmo*sun*0.15;
 
 	return vec4( atmo*( 1.0 - sunPos.y * 0.5 ), 1.0 );
-}
-
-subroutine( fragment ) vec4 world( ) {
-    return black;
-}
-
-void main( ) {
-    outputColor = fragmentProcess( );
 }
