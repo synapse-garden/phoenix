@@ -66,9 +66,9 @@ vec3 crosshairs( ) {
 	vec2 coord = (mouse / resolution);
 
 	vec3 color = vec3( 0.0 );
-	color.x = 0.001 / distance( coord.x, pos.x );
-	color.y = 0.001 / distance( coord.y, pos.y ) * ratio;
-	color.z = 0.2;
+	color.x = 0.002 / distance( coord.x, pos.x );
+	color.y = 0.002 / distance( coord.y, pos.y ) * ratio;
+	color.z = 0.3;
 
 	return color;
 }
