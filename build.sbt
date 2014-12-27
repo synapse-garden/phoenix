@@ -2,15 +2,17 @@ name := "phoenix"
 
 version := "0.1"
 
-scalaVersion := "2.11.2"
+scalaVersion := "2.11.4"
 
 autoCompilerPlugins := true
 
-addCompilerPlugin( "com.nativelibs4java" %% "scalaxy-streams" % "0.2.1" )
+addCompilerPlugin( "com.nativelibs4java" %% "scalaxy-streams" % "0.3.2" )
 
 scalacOptions ++= Seq(
   "-Xplugin-require:scalaxy-streams",
-  "-optimise"
+  "-optimise",
+  "-Yclosure-elim",
+  "-Yinline"
 )
 
 libraryDependencies ++= Seq(
